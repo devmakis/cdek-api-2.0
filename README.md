@@ -40,7 +40,7 @@
 Установка осуществляется с помощью менеджера пакетов Composer
 
 ```bash
-composer require cdek-it/sdk2.0
+composer require devmakis/cdek-api-2.0
 ```
 
 
