@@ -1,9 +1,10 @@
 {
-  "name": "cdek-it/sdk2.0",
+  "name": "devmakis/cdek-api-2.0",
   "type": "library",
   "description": "PHP SDK для API v2.0 от сервиса интеграции компании СДЭК",
   "keywords": [
     "CDEK",
+    "API",
     "sdk",
     "delivery",
     "СДЭК",

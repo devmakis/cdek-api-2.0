@@ -23,18 +23,21 @@ class Offices extends Action
      * @var array
      */
     public const FILTER = [
-        'postal_code' => '',
-        'city_code' => '',
-        'type' => '',
-        'country_code' => '',
-        'region_code' => '',
-        'have_cashless' => '',
-        'have_cash' => '',
-        'allowed_cod' => '',
+        'postal_code'      => '',
+        'city_code'        => '',
+        'type'             => '',
+        'country_code'     => '',
+        'region_code'      => '',
+        'have_cashless'    => '',
+        'have_cash'        => '',
+        'allowed_cod'      => '',
         'is_dressing_room' => '',
-        'weight_max' => '',
-        'weight_min' => '',
-        'lang' => '',
-        'take_only' => '',
+        'weight_max'       => '',
+        'weight_min'       => '',
+        'lang'             => '',
+        'take_only'        => '',
+        'is_handout'       => '',
+        'is_reception'     => '',
+        'fias_guid'        => '',
     ];
 }

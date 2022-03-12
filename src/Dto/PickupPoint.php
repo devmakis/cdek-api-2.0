@@ -36,6 +36,27 @@ class PickupPoint
     public $location;
 
     /**
+     * Описание местоположения
+     * @Type("string")
+     * @var string
+     */
+    public $address_comment;
+
+    /**
+     * Ближайшая станция/остановка транспорта
+     * @Type("string")
+     * @var string
+     */
+    public $nearest_station;
+
+    /**
+     * Ближайшая станция метро
+     * @Type("string")
+     * @var string
+     */
+    public $nearest_metro_station;
+
+    /**
      * Режим работы, строка вида «пн-пт 9-18, сб 9-16»
      * @Type("string")
      * @var string
@@ -43,25 +64,25 @@ class PickupPoint
     public $work_time;
 
     /**
+     * Список телефонов
+     * @Type("array<CdekSDK2\BaseTypes\Phone>")
+     * @var Phone[]
+     */
+    public $phones = [];
+
+    /**
+     * Адрес электронной почты
+     * @Type("string")
+     * @var string
+     */
+    public $email;
+
+    /**
      * Примечание по ПВЗ
      * @Type("string")
      * @var string
      */
     public $note;
-
-    /**
-     * Минимальный вес (в кг.), принимаемый в ПВЗ (> WeightMin)
-     * @Type("float")
-     * @var float
-     */
-    public $weight_min;
-
-    /**
-     * Максимальный вес (в кг.), принимаемый в ПВЗ (<=WeightMax)
-     * @Type("float")
-     * @var float
-     */
-    public $weight_max;
 
     /**
      * Тип ПВЗ: Склад СДЭК или Почтомат партнера, PVZ — склад СДЭК, POSTOMAT — почтомат партнера СДЭК
@@ -83,6 +104,20 @@ class PickupPoint
      * @var bool
      */
     public $take_only;
+
+    /**
+     * Является пунктом выдачи
+     * @Type("bool")
+     * @var bool
+     */
+    public $is_handout;
+
+    /**
+     * Является пунктом приёма
+     * @Type("bool")
+     * @var bool
+     */
+    public $is_reception;
 
     /**
      * Есть ли примерочная
@@ -113,39 +148,11 @@ class PickupPoint
     public $allowed_cod;
 
     /**
-     * Ближайшая станция/остановка транспорта
-     * @Type("string")
-     * @var string
-     */
-    public $nearest_station;
-
-    /**
-     * Ближайшая станция метро
-     * @Type("string")
-     * @var string
-     */
-    public $nearest_metro_station;
-
-    /**
      * Ссылка на данный ПВЗ на сайте СДЭК
      * @Type("string")
      * @var string
      */
     public $site;
-
-    /**
-     * Адрес электронной почты
-     * @Type("string")
-     * @var string
-     */
-    public $email;
-
-    /**
-     * Описание местоположения
-     * @Type("string")
-     * @var string
-     */
-    public $address_comment;
 
     /**
      * Все фото офиса
@@ -169,9 +176,30 @@ class PickupPoint
     public $work_time_exceptions;
 
     /**
-     * Список телефонов
-     * @Type("array<CdekSDK2\BaseTypes\Phone>")
-     * @var Phone[]
+     * Минимальный вес (в кг.), принимаемый в ПВЗ (> WeightMin)
+     * @Type("float")
+     * @var float
      */
-    public $phones = [];
+    public $weight_min;
+
+    /**
+     * Максимальный вес (в кг.), принимаемый в ПВЗ (<=WeightMax)
+     * @Type("float")
+     * @var float
+     */
+    public $weight_max;
+
+    /**
+     * Наличие зоны фулфилмента
+     * @Type("bool")
+     * @var bool
+     */
+    public $fulfillment;
+
+    /**
+     * Перечень максимальных размеров ячеек (только для type = POSTAMAT)
+     * @Type("array<CdekSDK2\Dto\Dimension>")
+     * @var Dimension[]
+     */
+    public $dimensions;
 }
