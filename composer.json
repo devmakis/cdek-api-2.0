@@ -15,9 +15,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Viktor Chizhekov",
-      "homepage": "https://github.com/ihomyak",
-      "role": "Creator"
+      "name": "Kiselev Maxim"
     }
   ],
   "require": {

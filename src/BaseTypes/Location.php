@@ -13,11 +13,41 @@ use JMS\Serializer\Annotation\Type;
 class Location extends Base
 {
     /**
-     * Код локации из справочника СДЭК
+     * Код страны в формате  ISO_3166-1_alpha-2
+     * @example RU, DE, TR
+     * @Type("string")
+     * @var string
+     */
+    public $country_code;
+
+    /**
+     * Код региона (справочник СДЭК)
      * @Type("int")
      * @var int
      */
-    public $code;
+    public $region_code;
+
+    /**
+     * Название региона
+     * @Type("string")
+     * @var string
+     */
+    public $region;
+
+    /**
+     * Код населенного пункта СДЭК (метод "Список населенных пунктов")
+     * @Type("int")
+     * @var int
+     */
+    public $city_code;
+
+    /**
+     * Название города
+     * @Type("string")
+     * @var string
+     */
+    public $city;
+
 
     /**
      * Уникальный идентификатор ФИАС
@@ -48,49 +78,6 @@ class Location extends Base
     public $latitude;
 
     /**
-     * Код страны в формате  ISO_3166-1_alpha-2
-     * @example RU, DE, TR
-     * @Type("string")
-     * @var string
-     */
-    public $country_code;
-
-    /**
-     * Название региона
-     * @Type("string")
-     * @var string
-     */
-    public $region;
-
-    /**
-     * Код региона (справочник СДЭК)
-     * @Type("int")
-     * @var int
-     */
-    public $region_code;
-
-    /**
-     * Название района региона
-     * @Type("string")
-     * @var string
-     */
-    public $sub_region;
-
-    /**
-     * Название города
-     * @Type("string")
-     * @var string
-     */
-    public $city;
-
-    /**
-     * Код КЛАДР
-     * @Type("string")
-     * @var string
-     */
-    public $kladr_code;
-
-    /**
      * Строка адреса
      * @Type("string")
      * @var string
@@ -104,7 +91,6 @@ class Location extends Base
      */
     public $address_full;
 
-
     /**
      * Location constructor.
      * @param array $param
@@ -113,17 +99,16 @@ class Location extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'address' => 'required',
-            'code' => 'numeric',
-            'fias_guid' => 'alpha',
-            'postal_code' => 'alpha',
-            'longitude' => 'numeric',
-            'latitude' => 'numeric',
-            'country_code' => 'alpha:2',
-            'region' => 'alpha',
-            'sub_region' => 'alpha',
-            'city' => 'alpha',
-            'kladr_code' => 'alpha',
+            'country_code' => 'required|alpha:2',
+            'region_code'  => 'required|integer',
+            'region'       => 'required',
+            'city_code'    => 'required|integer',
+            'city'         => 'required',
+            'postal_code'  => 'required',
+            'longitude'    => 'required|numeric',
+            'latitude'     => 'required|numeric',
+            'address'      => 'required',
+            'address_full' => 'required'
         ];
     }
 }

@@ -69,6 +69,7 @@ if ($res->hasErrors()) {
         //считываем ошибки
     }
 }
+
 if ($res->isOk()) {
     $cdek_order = $cdek->formatResponse($res, \CdekSDK2\BaseTypes\Order::class);
 //    $cdek_order->entity->uuid;
@@ -79,9 +80,6 @@ $res = $cdek->orders()->get($cdek_order->entity->uuid);
 if ($res->isOk()) {
     $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\OrderInfo::class);
 }
-
-
-
 
 //получить список офисов
 $res = $cdek->offices()->getFiltered(['country_code' => 'kz']);
