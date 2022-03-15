@@ -7,8 +7,9 @@ namespace CdekSDK2\BaseTypes;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Package
+ * Class TariffParamsByCode
  * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
 class TariffParamsByCode extends TariffParams
 {
