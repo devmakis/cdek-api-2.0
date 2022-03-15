@@ -55,12 +55,12 @@ class Action
     }
 
     /**
-     * Отправка запрос на добавление элемента
+     * Отправка post-запроса
      * @param array $params
      * @return ApiResponse
      * @throws RequestException
      */
-    protected function preparedAdd(array $params = []): ApiResponse
+    protected function post(array $params = []): ApiResponse
     {
         return $this->http_client->post($this->slug(), $params);
     }

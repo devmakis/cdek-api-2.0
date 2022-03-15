@@ -70,7 +70,7 @@ class OrdersTest extends TestCase
             ],
             'from_location' => \CdekSDK2\BaseTypes\Location::create(['address' => 'Ленина 23-1', 'code' => 270]),
             'to_location' => \CdekSDK2\BaseTypes\Location::create(['address' => 'Марата, 47-49', 'code' => 137]),
-            'packages' => [\CdekSDK2\BaseTypes\Package::create([
+            'packages' => [\CdekSDK2\BaseTypes\OrderPackage::create([
                 'number' => $order_number,
                 'weight' => 1000,
                 'length' => 10.8,

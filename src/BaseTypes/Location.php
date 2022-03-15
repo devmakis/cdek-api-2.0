@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
-use JMS\Serializer\Annotation\Type;
-
 /**
  * Class Location
  * @package CdekSDK2\BaseTypes
@@ -47,7 +45,6 @@ class Location extends Base
      * @var string
      */
     public $city;
-
 
     /**
      * Уникальный идентификатор ФИАС

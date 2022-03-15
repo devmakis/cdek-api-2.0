@@ -29,7 +29,7 @@ class Webhooks extends ActionsWithDelete
     public function add(WebHook $webHook): ApiResponse
     {
         $params = $this->serializer->toArray($webHook);
-        return $this->preparedAdd($params);
+        return $this->post($params);
     }
 
     /**

@@ -28,6 +28,6 @@ class Intakes extends ActionsWithDelete
     public function add(Intake $intake): ApiResponse
     {
         $params = $this->serializer->toArray($intake);
-        return $this->preparedAdd($params);
+        return $this->post($params);
     }
 }

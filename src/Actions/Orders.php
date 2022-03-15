@@ -28,6 +28,6 @@ class Orders extends ActionsWithDelete
     public function add(Order $order): ApiResponse
     {
         $params = $this->serializer->toArray($order);
-        return $this->preparedAdd($params);
+        return $this->post($params);
     }
 }

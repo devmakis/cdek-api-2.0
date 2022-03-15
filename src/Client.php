@@ -11,6 +11,8 @@ use CdekSDK2\Actions\LocationCities;
 use CdekSDK2\Actions\LocationRegions;
 use CdekSDK2\Actions\Offices;
 use CdekSDK2\Actions\Orders;
+use CdekSDK2\Actions\Tariff;
+use CdekSDK2\Actions\TariffList;
 use CdekSDK2\Actions\Webhooks;
 use CdekSDK2\Dto\CityList;
 use CdekSDK2\Dto\RegionList;
@@ -83,6 +85,16 @@ class Client
      * @var LocationCities
      */
     private $cities;
+
+    /**
+     * @var Tariff
+     */
+    private $tariff;
+
+    /**
+     * @var TariffList
+     */
+    private $tariffList;
 
     /**
      * Client constructor.
@@ -296,6 +308,28 @@ class Client
             $this->barcodes = new Barcodes($this->http_client, $this->serializer);
         }
         return $this->barcodes;
+    }
+
+    /**
+     * @return Tariff
+     */
+    public function tariff(): Tariff
+    {
+        if ($this->tariff === null) {
+            $this->tariff = new Tariff($this->http_client, $this->serializer);
+        }
+        return $this->tariff;
+    }
+
+    /**
+     * @return TariffList
+     */
+    public function tariffList(): TariffList
+    {
+        if ($this->tariffList === null) {
+            $this->tariffList = new TariffList($this->http_client, $this->serializer);
+        }
+        return $this->tariffList;
     }
 
     /**

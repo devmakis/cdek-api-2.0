@@ -15,7 +15,7 @@ use CdekSDK2\Http\ApiResponse;
 class Invoices extends Action
 {
     /**
-     * URL для запросов к API на формирование квитаниции
+     * URL для запросов к API на формирование квитанции
      * @var string
      */
     public const URL = '/print/orders';
@@ -29,7 +29,7 @@ class Invoices extends Action
     public function add(Invoice $invoice): ApiResponse
     {
         $params = $this->serializer->toArray($invoice);
-        return $this->preparedAdd($params);
+        return $this->post($params);
     }
 
     /**

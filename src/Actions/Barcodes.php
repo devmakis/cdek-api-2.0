@@ -29,7 +29,7 @@ class Barcodes extends Action
     public function add(Barcode $barcode): ApiResponse
     {
         $params = $this->serializer->toArray($barcode);
-        return $this->preparedAdd($params);
+        return $this->post($params);
     }
 
     /**
