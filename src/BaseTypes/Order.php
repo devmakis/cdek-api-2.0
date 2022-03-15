@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
-use CdekSDK2\Dto\Statuses;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 

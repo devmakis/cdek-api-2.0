@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
-use DateTime;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Package
@@ -14,8 +14,8 @@ class TariffParams extends Base
 {
     /**
      * Дата и время планируемой передачи заказа (по умолчанию - текущая)
-     * @Type("DateTime")
-     * @var DateTime
+     * @Type("string")
+     * @var string
      */
     public $date;
 
