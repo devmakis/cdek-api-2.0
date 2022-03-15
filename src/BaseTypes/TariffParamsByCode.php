@@ -41,7 +41,6 @@ class TariffParamsByCode extends TariffParams
                     if (!is_array($value)) {
                         return false;
                     }
-
                     $check = false;
                     foreach ($value as $item) {
                         if ($item instanceof Services) {
