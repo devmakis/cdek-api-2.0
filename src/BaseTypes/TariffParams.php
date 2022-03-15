@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
+use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -15,6 +16,7 @@ class TariffParams extends Base
 {
     /**
      * Дата и время планируемой передачи заказа (по умолчанию - текущая)
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -25,6 +27,7 @@ class TariffParams extends Base
      * 1 - "интернет-магазин"
      * 2 - "доставка"
      * По умолчанию - 1
+     * @SkipWhenEmpty()
      * @Type("int")
      * @var int
      */
@@ -33,15 +36,25 @@ class TariffParams extends Base
     /**
      * Валюта, в которой необходимо произвести расчет
      * По умолчанию - валюта договора
+     * @SkipWhenEmpty()
      * @Type("int")
      * @var int
      */
     public $currency;
 
     /**
+     * Код тарифа
+     * @SkipWhenEmpty()
+     * @Type("int")
+     * @var int
+     */
+    public $tariff_code;
+
+    /**
      * Язык вывода информации о тарифах
      * Возможные значения: rus, eng, zho
      * По умолчанию - rus
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -69,6 +82,14 @@ class TariffParams extends Base
     public $packages;
 
     /**
+     * Дополнительные услуги
+     * @SkipWhenEmpty()
+     * @Type("array<CdekSDK2\BaseTypes\Services>")
+     * @var Services[]
+     */
+    public $services;
+
+    /**
      * TariffParams constructor.
      * @param array $param
      */
@@ -76,6 +97,10 @@ class TariffParams extends Base
     {
         parent::__construct($param);
         $this->rules = [
+            'type'          => 'integer',
+            'currency'      => 'integer',
+            'tariff_code'   => 'integer',
+            'lang'          => 'alpha:3',
             'from_location' => [
                 'required',
                 function ($value) {
@@ -105,6 +130,24 @@ class TariffParams extends Base
                     $check = false;
                     foreach ($value as $item) {
                         if ($item instanceof TariffPackage) {
+                            $check = $item->validate();
+                            if (!$check) {
+                                return false;
+                            }
+                        }
+                    }
+                    return $check;
+                }
+            ],
+            'services'      => [
+                'array',
+                function ($value) {
+                    if (!is_array($value)) {
+                        return false;
+                    }
+                    $check = false;
+                    foreach ($value as $item) {
+                        if ($item instanceof Services) {
                             $check = $item->validate();
                             if (!$check) {
                                 return false;

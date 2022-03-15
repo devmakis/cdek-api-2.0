@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\TariffParamsByCode;
+use CdekSDK2\BaseTypes\TariffParams;
 use CdekSDK2\Exceptions\RequestException;
 use CdekSDK2\Http\ApiResponse;
 
@@ -22,13 +22,13 @@ class Tariff extends Action
     public const URL = '/calculator/tariff';
 
     /**
-     * @param TariffParamsByCode $tariffParamsByCode
+     * @param TariffParams $tariffParams
      * @return ApiResponse
      * @throws RequestException
      */
-    public function one(TariffParamsByCode $tariffParamsByCode): ApiResponse
+    public function one(TariffParams $tariffParams): ApiResponse
     {
-        $params = $this->serializer->toArray($tariffParamsByCode);
+        $params = $this->serializer->toArray($tariffParams);
         return $this->post($params);
     }
 }
