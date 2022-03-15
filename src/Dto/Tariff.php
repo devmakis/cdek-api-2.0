@@ -6,6 +6,10 @@ namespace CdekSDK2\Dto;
 
 use JMS\Serializer\Annotation\Type;
 
+/**
+ * Class Tariff
+ * @package CdekSDK2\Dto
+ */
 class Tariff
 {
     /**

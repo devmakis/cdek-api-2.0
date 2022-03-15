@@ -69,7 +69,7 @@ class TariffParams extends Base
     public $packages;
 
     /**
-     * Package constructor.
+     * TariffParams constructor.
      * @param array $param
      */
     public function __construct(array $param = [])
