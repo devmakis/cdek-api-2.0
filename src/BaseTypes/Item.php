@@ -27,13 +27,6 @@ class Item extends Base
     public $ware_key;
 
     /**
-     * Маркировка товара/вложения
-     * @Type("string")
-     * @var string
-     */
-    public $marking;
-
-    /**
      * Оплата за товар при получении
      * @Type("CdekSDK2\BaseTypes\Money")
      * @var Money
@@ -125,12 +118,12 @@ class Item extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'name' => 'required',
-            'ware_key' => 'required',
-            'cost' => 'required|numeric',
-            'weight' => 'required|numeric',
-            'amount' => 'required|integer',
-            'payment' => [
+            'name'         => 'required',
+            'ware_key'     => 'required',
+            'cost'         => 'required|numeric',
+            'weight'       => 'required|numeric',
+            'amount'       => 'required|integer',
+            'payment'      => [
                 'required',
                 function ($value) {
                     if ($value instanceof Money) {
@@ -140,7 +133,7 @@ class Item extends Base
             ],
             'weight_gross' => 'numeric',
             'country_code' => 'alpha:2',
-            'url' => 'url',
+            'url'          => 'url',
         ];
     }
 }

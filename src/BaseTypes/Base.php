@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\Type;
 use Rakit\Validation\Validator;
 
 /**
@@ -61,8 +63,9 @@ class Base
      * @param array $data
      * @return Base
      */
-    public static function create(array $data = []): self
+    public static function create($data = []): self
     {
+        \assert(\is_array($data));
         return new static($data);
     }
 }

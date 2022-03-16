@@ -76,8 +76,8 @@ class TariffParams extends Base
 
     /**
      * Список информации по местам (упаковкам)
-     * @Type("array<CdekSDK2\BaseTypes\TariffPackage>")
-     * @var TariffPackage[]
+     * @Type("array<CdekSDK2\BaseTypes\Package>")
+     * @var Package[]
      */
     public $packages;
 
@@ -129,7 +129,7 @@ class TariffParams extends Base
 
                     $check = false;
                     foreach ($value as $item) {
-                        if ($item instanceof TariffPackage) {
+                        if ($item instanceof Package) {
                             $check = $item->validate();
                             if (!$check) {
                                 return false;

@@ -41,7 +41,7 @@ class Money extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'value' => 'required|numeric',
+            'value'   => 'required|numeric',
             'vat_sum' => 'numeric',
         ];
     }

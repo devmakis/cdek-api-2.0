@@ -26,7 +26,7 @@ class TariffList extends Action
      * @return ApiResponse
      * @throws RequestException
      */
-    public function all(TariffParams $tariffParams): ApiResponse
+    public function getByParams(TariffParams $tariffParams): ApiResponse
     {
         $params = $this->serializer->toArray($tariffParams);
         return $this->post($params);

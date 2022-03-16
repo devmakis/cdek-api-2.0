@@ -158,7 +158,7 @@ class ClientTest extends TestCase
         $response = $this->createMock(ApiResponse::class);
         $response->method('getBody')
             ->willReturn('[{"country_code":"DE","region":"Нижняя Саксония","region_code":"641","country":"Германия"}]');
-        $region_list = $this->client->formatResponseList($response, RegionList::class);
+        $region_list = $this->client->formatResponseInClass($response, RegionList::class);
         $this->assertInstanceOf(RegionList::class, $region_list);
     }
 
@@ -168,6 +168,6 @@ class ClientTest extends TestCase
         $response = $this->createMock(ApiResponse::class);
         $response->method('getBody')
             ->willReturn('[{"country_code":"DE","region":"Нижняя Саксония","region_code":"641","country":"Германия"}]');
-        $hook = $this->client->formatResponseList($response, 'AnotherClass');
+        $hook = $this->client->formatResponseInClass($response, 'AnotherClass');
     }
 }

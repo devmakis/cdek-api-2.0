@@ -15,7 +15,9 @@ use CdekSDK2\Actions\Tariff;
 use CdekSDK2\Actions\TariffList;
 use CdekSDK2\Actions\Webhooks;
 use CdekSDK2\Dto\CityList;
+use CdekSDK2\Dto\IList;
 use CdekSDK2\Dto\RegionList;
+use CdekSDK2\Dto\TariffCodes;
 use CdekSDK2\Dto\WebHookList;
 use CdekSDK2\Dto\PickupPointList;
 use CdekSDK2\Dto\Response;
@@ -356,17 +358,17 @@ class Client
     }
 
     /**
-     * @param ApiResponse $response
+     * @param \CdekSDK2\Http\ApiResponse $response
      * @param string $className
-     * @return CityList|RegionList|PickupPointList|WebHookList
-     * @throws \Exception
+     * @return array|bool|float|int|mixed|object|\S|string
+     * @throws \CdekSDK2\Exceptions\ParsingException
      */
-    public function formatResponseList(ApiResponse $response, string $className)
+    public function formatResponseInClass(ApiResponse $response, string $className)
     {
         if (class_exists($className)) {
-            $body = '{"items":' . $response->getBody() . '}';
-            $result = $this->serializer->deserialize($body, $className, 'json');
-            return $result;
+            $body = class_implements($className) == IList::class ?
+                '{"items":' . $response->getBody() . '}' : $response->getBody();
+            return $this->serializer->deserialize($body, $className, 'json');
         }
 
         throw new ParsingException('Class ' . $className . ' not found');

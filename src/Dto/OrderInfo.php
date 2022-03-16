@@ -7,9 +7,9 @@ namespace CdekSDK2\Dto;
 use CdekSDK2\BaseTypes\Contact;
 use CdekSDK2\BaseTypes\Location;
 use CdekSDK2\BaseTypes\Money;
-use CdekSDK2\BaseTypes\OrderPackage;
+use CdekSDK2\BaseTypes\Package;
 use CdekSDK2\BaseTypes\Seller;
-use CdekSDK2\BaseTypes\OrderServices;
+use CdekSDK2\BaseTypes\Services;
 use CdekSDK2\BaseTypes\Threshold;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
@@ -176,15 +176,15 @@ class OrderInfo
 
     /**
      * Дополнительные услуги
-     * @Type("array<CdekSDK2\BaseTypes\OrderServices>")
-     * @var OrderServices[]
+     * @Type("array<CdekSDK2\BaseTypes\Services>")
+     * @var Services[]
      */
     public $services;
 
     /**
      * Список информации по местам
-     * @Type("array<CdekSDK2\BaseTypes\OrderPackage>")
-     * @var OrderPackage[]
+     * @Type("array<CdekSDK2\BaseTypes\Package>")
+     * @var Package[]
      */
     public $packages;
 

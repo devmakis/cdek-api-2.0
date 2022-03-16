@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
+use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -21,10 +22,18 @@ class Services extends Base
 
     /**
      * Параметр дополнительной услуги
+     * @SkipWhenEmpty
+     * @Type("string")
+     * @var string
+     */
+    public $parameter;
+
+    /**
+     * Сумма услуги (в валюте договора)
      * @Type("float")
      * @var float
      */
-    public $parameter;
+    public $sum;
 
     /**
      * @param array $param
@@ -35,6 +44,7 @@ class Services extends Base
         $this->rules = [
             'code'      => 'required|alpha',
             'parameter' => 'alpha',
+            'sum'       => 'numeric'
         ];
     }
 }

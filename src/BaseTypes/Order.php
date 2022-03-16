@@ -167,15 +167,15 @@ class Order extends Base
 
     /**
      * Дополнительные услуги
-     * @Type("array<CdekSDK2\BaseTypes\OrderServices>")
-     * @var OrderServices[]
+     * @Type("array<CdekSDK2\BaseTypes\Services>")
+     * @var Services[]
      */
     public $services;
 
     /**
      * Список информации по местам
-     * @Type("array<CdekSDK2\BaseTypes\OrderPackage>")
-     * @var OrderPackage[]
+     * @Type("array<CdekSDK2\BaseTypes\Package>")
+     * @var Package[]
      */
     public $packages;
 
@@ -187,9 +187,9 @@ class Order extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'tariff_code' => 'required|numeric',
-            'services' => 'array',
-            'sender' => [
+            'tariff_code'   => 'required|numeric',
+            'services'      => 'array',
+            'sender'        => [
                 'required',
                 function ($value) {
                     if ($value instanceof Contact) {
@@ -197,7 +197,7 @@ class Order extends Base
                     }
                 }
             ],
-            'recipient' => [
+            'recipient'     => [
                 'required',
                 function ($value) {
                     if ($value instanceof Contact) {
@@ -213,7 +213,7 @@ class Order extends Base
                     }
                 }
             ],
-            'to_location' => [
+            'to_location'   => [
                 'required',
                 function ($value) {
                     if ($value instanceof Location) {
@@ -221,15 +221,16 @@ class Order extends Base
                     }
                 }
             ],
-            'packages' => [
-                'required', 'array',
+            'packages'      => [
+                'required',
+                'array',
                 function ($value) {
                     if (!is_array($value) || empty($value) || count($value) < 1) {
                         return false;
                     }
                     $i = 0;
                     foreach ($value as $item) {
-                        if ($item instanceof OrderPackage) {
+                        if ($item instanceof Package) {
                             $i += (int)$item->validate();
                         }
                     }

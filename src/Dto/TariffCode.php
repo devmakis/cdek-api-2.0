@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Dto;
 
+use CdekSDK2\BaseTypes\Services;
+use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Tariff
+ * Class TariffCode
  * @package CdekSDK2\Dto
  */
-class Tariff
+class TariffCode
 {
     /**
      * Код тарифа (подробнее @see https://api-docs.cdek.ru/63345519.html)
+     * @SkipWhenEmpty
      * @Type("int")
      * @var int
      */
@@ -21,6 +24,7 @@ class Tariff
 
     /**
      * Код населенного пункта (справочник СДЭК)
+     * @SkipWhenEmpty
      * @Type("string")
      * @var string
      */
@@ -28,6 +32,7 @@ class Tariff
 
     /**
      * Описание тарифа на языке вывода
+     * @SkipWhenEmpty
      * @Type("string")
      * @var string
      */
@@ -35,6 +40,7 @@ class Tariff
 
     /**
      * Режим тарифа
+     * @SkipWhenEmpty
      * @Type("int")
      * @var int
      */
@@ -60,4 +66,20 @@ class Tariff
      * @var int
      */
     public $period_max;
+
+    /**
+     * Расчетный вес (в граммах)
+     * @SkipWhenEmpty
+     * @Type("int")
+     * @var int
+     */
+    public $weight_calc;
+
+    /**
+     * Дополнительные услуги
+     * @SkipWhenEmpty()
+     * @Type("array<CdekSDK2\BaseTypes\Services>")
+     * @var Services[]
+     */
+    public $services;
 }

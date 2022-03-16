@@ -7,15 +7,15 @@ namespace CdekSDK2\Dto;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class TariffList
+ * Class TariffCodes
  * @package CdekSDK2\Dto
  */
-class TariffList
+class TariffCodes
 {
     /**
      * Список тарифов
-     * @Type("array<CdekSDK2\Dto\Tariff>")
-     * @var Tariff[]
+     * @Type("array<CdekSDK2\Dto\TariffCode>")
+     * @var TariffCode[]
      */
-    public $items = [];
+    public $tariff_codes;
 }

@@ -190,7 +190,7 @@ $order = BaseTypes\Order::create([
         'address' => 'Титова 21 кв 9'
     ]),
     'packages' => [
-        BaseTypes\OrderPackage::create([
+        BaseTypes\Package::create([
             'number' => 'number1',
             'weight' => 1000,
             'length' => 12,

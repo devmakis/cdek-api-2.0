@@ -3,8 +3,8 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\TariffList;
+use CdekSDK2\BaseTypes\Package;
 use CdekSDK2\BaseTypes\TariffLocation;
-use CdekSDK2\BaseTypes\TariffPackage;
 use CdekSDK2\BaseTypes\TariffParams;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
@@ -47,11 +47,11 @@ class TariffsTest extends TestCase
 
             ]),
             'to_location'   => TariffLocation::create([]),
-            'packages'      => TariffPackage::create([]),
+            'packages'      => Package::create([]),
         ]);
 
         $this->assertTrue($tariffParams->validate());
-        $response = $this->tariffList->all($tariffParams);
+        $response = $this->tariffList->getByParams($tariffParams);
         $this->assertInstanceOf(ApiResponse::class, $response);
         $this->assertTrue($response->isOk());
         $this->assertFalse($response->hasErrors());

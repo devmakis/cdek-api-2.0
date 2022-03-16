@@ -59,7 +59,7 @@ class OfficesTest extends TestCase
         $this->assertInstanceOf(ApiResponse::class, $response);
 
         /* @var PickupPointList $pickup_list */
-        $pickup_list = $client->formatResponseList($response, PickupPointList::class);
+        $pickup_list = $client->formatResponseInClass($response, PickupPointList::class);
         $this->assertEquals(1, $pickup_list->getCount());
 
         $this->assertCount(1, $pickup_list->filter(['type' => 'PVZ']));

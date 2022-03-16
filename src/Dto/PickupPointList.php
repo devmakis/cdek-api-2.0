@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Type;
  * Class PickupPointList
  * @package CdekSDK2\Dto
  */
-class PickupPointList
+class PickupPointList implements IList
 {
     /**
      * Список ПВЗ
