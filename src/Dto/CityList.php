@@ -6,12 +6,12 @@ namespace CdekSDK2\Dto;
 
 use JMS\Serializer\Annotation\Type;
 
-class CityList
+class CityList implements IList
 {
     /**
      * Список городов
      * @Type("array<CdekSDK2\Dto\City>")
      * @var City[]
      */
-    public $items;
+    public $items = [];
 }

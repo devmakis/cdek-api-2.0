@@ -7,7 +7,7 @@ namespace CdekSDK2\Dto;
 use CdekSDK2\BaseTypes\WebHook;
 use JMS\Serializer\Annotation\Type;
 
-class WebHookList
+class WebHookList implements IList
 {
     /**
      * Список ПВЗ

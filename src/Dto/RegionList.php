@@ -6,12 +6,12 @@ namespace CdekSDK2\Dto;
 
 use JMS\Serializer\Annotation\Type;
 
-class RegionList
+class RegionList implements IList
 {
     /**
      * Список регионов
      * @Type("array<CdekSDK2\Dto\Region>")
      * @var Region[]
      */
-    public $items;
+    public $items = [];
 }
