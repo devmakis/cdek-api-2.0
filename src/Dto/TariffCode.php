@@ -78,7 +78,7 @@ class TariffCode
     /**
      * Дополнительные услуги
      * @SkipWhenEmpty()
-     * @Type("array<CdekSDK2\BaseTypes\Services>")
+     * @Type("array<CdekSDK2\BaseTypes\Service>")
      * @var Service[]
      */
     public $services;

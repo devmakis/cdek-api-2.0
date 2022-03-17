@@ -176,7 +176,7 @@ class OrderInfo
 
     /**
      * Дополнительные услуги
-     * @Type("array<CdekSDK2\BaseTypes\Services>")
+     * @Type("array<CdekSDK2\BaseTypes\Service>")
      * @var Service[]
      */
     public $services;
