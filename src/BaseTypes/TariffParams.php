@@ -85,7 +85,7 @@ class TariffParams extends Base
      * Дополнительные услуги
      * @SkipWhenEmpty()
      * @Type("array<CdekSDK2\BaseTypes\Services>")
-     * @var Services[]
+     * @var Service[]
      */
     public $services;
 
@@ -147,7 +147,7 @@ class TariffParams extends Base
                     }
                     $check = false;
                     foreach ($value as $item) {
-                        if ($item instanceof Services) {
+                        if ($item instanceof Service) {
                             $check = $item->validate();
                             if (!$check) {
                                 return false;
