@@ -65,6 +65,195 @@ class Constants
     public const SERVICE_DANGEROUS_GOODS = 'DANGER_CARGO';
 
     /**
+     * Ожидание более 15 мин. у получателя
+     * @var string
+     */
+    public const SERVICE_WAIT_FOR_RECEIVER = 'WAIT_FOR_RECEIVER';
+
+    /**
+     * Ожидание более 15 мин. у отправителя
+     * @var string
+     */
+    public const SERVICE_WAIT_FOR_SENDER = 'WAIT_FOR_SENDER';
+
+    /**
+     * Повторная поездка
+     * @var string
+     */
+    public const SERVICE_REPEATED_DELIVERY = 'REPEATED_DELIVERY';
+
+    /**
+     * Подъем на этаж ручной
+     * @var string
+     */
+    public const SERVICE_GET_UP_FLOOR_BY_HAND = 'GET_UP_FLOOR_BY_HAND';
+
+    /**
+     * Подъем на этаж лифтом
+     * @var string
+     */
+    public const SERVICE_GET_UP_FLOOR_BY_ELEVATOR = 'GET_UP_FLOOR_BY_ELEVATOR';
+
+    /**
+     * Прозвон
+     * @var string
+     */
+    public const SERVICE_CALL = 'CALL';
+
+    /**
+     * Тепловой режим
+     * @var string
+     */
+    public const SERVICE_THERMAL_MODE = 'THERMAL_MODE';
+
+    /**
+     * Пакет курьерский А2
+     * @var string
+     */
+    public const SERVICE_COURIER_PACKAGE_A2 = 'COURIER_PACKAGE_A2';
+
+    /**
+     * Сейф пакет А2
+     * @var string
+     */
+    public const SERVICE_SECURE_PACKAGE_A2 = 'SECURE_PACKAGE_A2';
+
+    /**
+     * Сейф пакет А3
+     * @var string
+     */
+    public const SERVICE_SECURE_PACKAGE_A3 = 'SECURE_PACKAGE_A3';
+
+    /**
+     * Сейф пакет А4
+     * @var string
+     */
+    public const SERVICE_SECURE_PACKAGE_A4 = 'SECURE_PACKAGE_A4';
+
+    /**
+     * Сейф пакет А5
+     * @var string
+     */
+    public const SERVICE_SECURE_PACKAGE_A5 = 'SECURE_PACKAGE_A5';
+
+    /**
+     * Уведомление о создании заказа в СДЭК
+     * @var string
+     */
+    public const SERVICE_NOTIFY_ORDER_CREATED = 'NOTIFY_ORDER_CREATED';
+
+    /**
+     * Уведомление о приеме заказа на доставку
+     * @var string
+     */
+    public const SERVICE_NOTIFY_ORDER_DELIVERY = 'NOTIFY_ORDER_DELIVERY';
+
+    /**
+     * Коробка XS (0,5 кг 17х12х9 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_XS = 'CARTON_BOX_XS';
+
+    /**
+     * Коробка S (2 кг 21х20х11 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_S = 'CARTON_BOX_S';
+
+    /**
+     * Коробка M (5 кг 33х25х15 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_M = 'CARTON_BOX_M';
+
+    /**
+     * Коробка L (12 кг 34х33х26 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_L = 'CARTON_BOX_L';
+
+    /**
+     * Коробка (0,5 кг 17х12х10 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_500GR = 'CARTON_BOX_500GR';
+
+    /**
+     * Коробка (1 кг 24х17х10 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_1KG = 'CARTON_BOX_1KG';
+
+    /**
+     * Коробка (2 кг 34х24х10 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_2KG = 'CARTON_BOX_2KG';
+
+    /**
+     * Коробка (3 кг 24х24х21 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_3KG = 'CARTON_BOX_3KG';
+
+    /**
+     * Коробка (5 кг 40х24х21 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_5KG = 'CARTON_BOX_5KG';
+
+    /** @var string Коробка (10 кг 40х35х28 см) */
+    public const SERVICE_CARTON_BOX_10KG = 'CARTON_BOX_10KG';
+
+    /**
+     * Коробка (15 кг 60х35х29 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_15KG = 'CARTON_BOX_15KG';
+
+    /**
+     * Коробка (20 кг 47х40х43 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_20KG = 'CARTON_BOX_20KG';
+
+    /**
+     * Коробка (30 кг 69х39х42 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_BOX_30KG = 'CARTON_BOX_30KG';
+
+    /**
+     * Воздушно-пузырчатая пленка
+     * @var string
+     */
+    public const SERVICE_BUBBLE_WRAP = 'BUBBLE_WRAP';
+
+    /**
+     * Макулатурная бумага
+     * @var string
+     */
+    public const SERVICE_WASTE_PAPER = 'WASTE_PAPER';
+
+    /**
+     * Прессованный картон "филлер" (55х14х2,3 см)
+     * @var string
+     */
+    public const SERVICE_CARTON_FILLER = 'CARTON_FILLER';
+
+    /**
+     * Запрет осмотра вложения
+     * @var string
+     */
+    public const SERVICE_BAN_ATTACHMENT_INSPECTION = 'BAN_ATTACHMENT_INSPECTION';
+
+    /**
+     * Смс уведомление
+     * @var string
+     */
+    public const SERVICE_SMS_NOTIFICATION = 'SMS';
+
+    /**
      * Забор в городе отправителе.
      * @var string
      */
