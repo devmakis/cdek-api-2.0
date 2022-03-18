@@ -649,4 +649,28 @@ class Constants
      * @var int
      */
     public const DELIVERY_MODE_WAREHOUSE_POSTAMAT = 6;
+
+    /**
+     * Код тарифа "Магистральный экспресс склад-склад"
+     * @var int
+     */
+    public const TARIFF_CODE_TRUNK_EXPRESS_WAREHOUSE_WAREHOUSE = 62;
+
+    /**
+     * Код тарифа "Магистральный экспресс дверь-дверь"
+     * @var int
+     */
+    public const TARIFF_CODE_TRUNK_EXPRESS_DOOR_DOOR = 121;
+
+    /**
+     * Код тарифа "Магистральный экспресс склад-дверь"
+     * @var int
+     */
+    public const TARIFF_CODE_TRUNK_EXPRESS_WAREHOUSE_DOOR = 122;
+
+    /**
+     * Код тарифа "Магистральный экспресс дверь-склад"
+     * @var int
+     */
+    public const TARIFF_CODE_TRUNK_EXPRESS_DOOR_WAREHOUSE = 123;
 }
