@@ -30,6 +30,7 @@ use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use Psr\Http\Client\ClientInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Client
@@ -210,6 +211,16 @@ class Client
     public function setExpire(int $timestamp): self
     {
         $this->http_client->setExpire($timestamp);
+        return $this;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     * @return $this
+     */
+    public function setLogger(LoggerInterface $logger): self
+    {
+        $this->http_client->setLogger($logger);
         return $this;
     }
 
