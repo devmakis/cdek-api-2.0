@@ -613,4 +613,40 @@ class Constants
      * @var int
      */
     public const MATERIAL_RUBBER = 17;
+
+    /**
+     * Код режима доставки: дверь-дверь
+     * @var int
+     */
+    public const DELIVERY_MODE_DOOR_DOOR = 1;
+
+    /**
+     * Код режима доставки: дверь-склад
+     * @var int
+     */
+    public const DELIVERY_MODE_DOOR_WAREHOUSE = 2;
+
+    /**
+     * Код режима доставки: склад-дверь
+     * @var int
+     */
+    public const DELIVERY_MODE_WAREHOUSE_DOOR = 3;
+
+    /**
+     * Код режима доставки: склад-склад
+     * @var int
+     */
+    public const DELIVERY_MODE_WAREHOUSE_WAREHOUSE = 4;
+
+    /**
+     * Код режима доставки: дверь-постамат
+     * @var int
+     */
+    public const DELIVERY_MODE_DOOR_POSTAMAT = 5;
+
+    /**
+     * Код режима доставки: склад-постамат
+     * @var int
+     */
+    public const DELIVERY_MODE_WAREHOUSE_POSTAMAT = 6;
 }
