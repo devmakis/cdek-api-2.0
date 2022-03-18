@@ -11,6 +11,7 @@ use Nyholm\Psr7\Request;
 use Nyholm\Psr7\Uri;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * Class Api
@@ -18,6 +19,8 @@ use Psr\Http\Client\ClientInterface;
  */
 class Api
 {
+    use LoggerAwareTrait;
+
     /**
      * Аккаунт сервиса интеграции
      * @var string
@@ -243,8 +246,22 @@ class Api
             $response = $this->client->sendRequest($request);
             return new ApiResponse($response);
         } catch (ClientExceptionInterface $e) {
+            if ($this->logger) {
+                $this->logger->debug('CDEK API responded with an HTTP error code {error_code}', [
+                    'exception'  => $e,
+                    'error_code' => $e->getCode(),
+                ]);
+            }
+
             throw new RequestException($e->getMessage(), (int)$e->getCode());
         } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->debug('CDEK API responded with an HTTP error code {error_code}', [
+                    'exception'  => $e,
+                    'error_code' => $e->getCode(),
+                ]);
+            }
+
             throw new RequestException($e->getMessage(), (int)$e->getCode());
         }
     }
