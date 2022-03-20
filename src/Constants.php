@@ -673,4 +673,10 @@ class Constants
      * @var int
      */
     public const TARIFF_CODE_TRUNK_EXPRESS_DOOR_WAREHOUSE = 123;
+
+    /**
+     * Код ошибки "Место с указанным номером уже существует"
+     * @var string
+     */
+    public const ERROR_CODE_VALIDATE_PACKAGE_NUMBER_HAS_ALREASY_USED = 'error_validate_package_number_has_alreasy_used';
 }
