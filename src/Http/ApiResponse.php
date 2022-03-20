@@ -64,8 +64,8 @@ class ApiResponse
                     ];
                 } elseif (isset($decode_body['errors'])) {
                     $this->errors = $decode_body['errors'];
-                } elseif (isset($decode_body['request']) && isset($decode_body['request']['errors'])) {
-                    $this->errors = $decode_body['request']['errors'];
+                } elseif (isset($decode_body['requests']) && isset($decode_body['requests']['errors'])) {
+                    $this->errors = $decode_body['requests']['errors'];
                 }
             }
         }
