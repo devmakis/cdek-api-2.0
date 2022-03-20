@@ -57,6 +57,10 @@ class ApiResponse
 
             if ($this->status > 299) {
                 $decode_body = json_decode($this->body, true);
+                if (isset($decode_body['requests']) && is_array($decode_body['requests'])) {
+                    $decode_body = reset($decode_body['requests']);
+                }
+
                 if (isset($decode_body['error'])) {
                     $this->errors[] = [
                         'code'    => $decode_body['error'],
@@ -64,8 +68,6 @@ class ApiResponse
                     ];
                 } elseif (isset($decode_body['errors'])) {
                     $this->errors = $decode_body['errors'];
-                } elseif (isset($decode_body['requests']) && isset($decode_body['requests']['errors'])) {
-                    $this->errors = $decode_body['requests']['errors'];
                 }
             }
         }
