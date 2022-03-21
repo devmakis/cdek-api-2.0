@@ -618,37 +618,73 @@ class Constants
      * Код режима доставки: дверь-дверь
      * @var int
      */
-    public const DELIVERY_MODE_DOOR_DOOR = 1;
+    public const DELIVERY_MODE_CODE_DOOR_DOOR = 1;
+
+    /**
+     * Режим доставки: дверь-дверь
+     * @var int
+     */
+    public const DELIVERY_MODE_NAME_DOOR_DOOR = 'дверь-дверь';
 
     /**
      * Код режима доставки: дверь-склад
      * @var int
      */
-    public const DELIVERY_MODE_DOOR_WAREHOUSE = 2;
+    public const DELIVERY_MODE_CODE_DOOR_WAREHOUSE = 2;
+
+    /**
+     * Режим доставки: дверь-склад
+     * @var int
+     */
+    public const DELIVERY_MODE_NAME_DOOR_WAREHOUSE = 'дверь-склад';
 
     /**
      * Код режима доставки: склад-дверь
      * @var int
      */
-    public const DELIVERY_MODE_WAREHOUSE_DOOR = 3;
+    public const DELIVERY_MODE_CODE_WAREHOUSE_DOOR = 3;
+
+    /**
+     * Режим доставки: склад-дверь
+     * @var int
+     */
+    public const DELIVERY_MODE_NAME_WAREHOUSE_DOOR = 'склад-дверь';
 
     /**
      * Код режима доставки: склад-склад
      * @var int
      */
-    public const DELIVERY_MODE_WAREHOUSE_WAREHOUSE = 4;
+    public const DELIVERY_MODE_CODE_WAREHOUSE_WAREHOUSE = 4;
+
+    /**
+     * Код режима доставки: склад-склад
+     * @var int
+     */
+    public const DELIVERY_MODE_NAME_WAREHOUSE_WAREHOUSE = 'склад-склад';
 
     /**
      * Код режима доставки: дверь-постамат
      * @var int
      */
-    public const DELIVERY_MODE_DOOR_POSTAMAT = 5;
+    public const DELIVERY_MODE_CODE_DOOR_POSTAMAT = 5;
+
+    /**
+     * Режим доставки: дверь-постамат
+     * @var int
+     */
+    public const DELIVERY_MODE_NAME_CODE_DOOR_POSTAMAT = 'дверь-постамат';
 
     /**
      * Код режима доставки: склад-постамат
      * @var int
      */
-    public const DELIVERY_MODE_WAREHOUSE_POSTAMAT = 6;
+    public const DELIVERY_MODE_CODE_WAREHOUSE_POSTAMAT = 6;
+
+    /**
+     * Код режима доставки: склад-постамат
+     * @var int
+     */
+    public const DELIVERY_MODE_NAME_WAREHOUSE_POSTAMAT = 'склад-постамат';
 
     /**
      * Код тарифа "Магистральный экспресс склад-склад"
