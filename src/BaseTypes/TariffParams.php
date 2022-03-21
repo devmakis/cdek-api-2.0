@@ -123,10 +123,9 @@ class TariffParams extends Base
                 'required',
                 'array',
                 function ($value) {
-                    if (!is_array($value)) {
+                    if (!is_array($value) || empty($value)) {
                         return false;
                     }
-
                     $check = false;
                     foreach ($value as $item) {
                         if ($item instanceof Package) {
@@ -142,7 +141,7 @@ class TariffParams extends Base
             'services'      => [
                 'array',
                 function ($value) {
-                    if (!is_array($value)) {
+                    if (!is_array($value) || empty($value)) {
                         return false;
                     }
                     $check = false;

@@ -19,14 +19,14 @@ class Contact extends Base
      * @Type("string")
      * @var string
      */
-    public $company = '';
+    public $company;
 
     /**
      * ФИО контактного лица
      * @Type("string")
      * @var string
      */
-    public $name = '';
+    public $name;
 
     /**
      * Электронный адрес
@@ -34,14 +34,14 @@ class Contact extends Base
      * @Type("string")
      * @var string
      */
-    public $email = '';
+    public $email;
 
     /**
      * Список телефонов
      * @Type("array<CdekSDK2\BaseTypes\Phone>")
      * @var Phone[]
      */
-    public $phones = [];
+    public $phones;
 
     /**
      * Серия паспорта получателя(только для международных заказов)
@@ -100,22 +100,24 @@ class Contact extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'name' => 'required',
-            'email' => 'email',
+            'name'   => 'required',
+            'email'  => 'email',
             'phones' => [
                 'required',
                 function ($value) {
-                    if (!is_array($value) || empty($value) || count($value) < 1) {
+                    if (!is_array($value) || empty($value)) {
                         return false;
                     }
-                    $i = 0;
+                    $check = false;
                     foreach ($value as $item) {
                         if ($item instanceof Phone) {
-                            /* @var $item Phone */
-                            $i += (int)$item->validate();
+                            $check = $item->validate();
+                            if (!$check) {
+                                return false;
+                            }
                         }
                     }
-                    return ($i === count($value));
+                    return $check;
                 }
             ]
         ];
