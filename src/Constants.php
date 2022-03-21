@@ -38,7 +38,7 @@ class Constants
      * Печатная форма - накладная для заказа
      * @var string
      */
-    public const PRINT_TYPE_INVOICE = 'receipt';
+    public const PRINT_TYPE_INVOICE = 'waybill';
 
     /**
      * Ошибка авторизации
