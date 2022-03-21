@@ -672,7 +672,7 @@ class Constants
      * Режим доставки: дверь-постамат
      * @var int
      */
-    public const DELIVERY_MODE_NAME_CODE_DOOR_POSTAMAT = 'дверь-постамат';
+    public const DELIVERY_MODE_NAME_DOOR_POSTAMAT = 'дверь-постамат';
 
     /**
      * Код режима доставки: склад-постамат
