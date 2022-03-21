@@ -62,15 +62,15 @@ class TariffParams extends Base
 
     /**
      * Адрес отправления
-     * @Type("CdekSDK2\BaseTypes\TariffLocation")
-     * @var TariffLocation
+     * @Type("CdekSDK2\BaseTypes\Location")
+     * @var Location
      */
     public $from_location;
 
     /**
      * Адрес получения
-     * @Type("CdekSDK2\BaseTypes\TariffLocation")
-     * @var TariffLocation
+     * @Type("CdekSDK2\BaseTypes\Location")
+     * @var Location
      */
     public $to_location;
 
@@ -104,7 +104,7 @@ class TariffParams extends Base
             'from_location' => [
                 'required',
                 function ($value) {
-                    if ($value instanceof TariffLocation) {
+                    if ($value instanceof Location) {
                         return $value->validate();
                     }
                     return false;
@@ -113,7 +113,7 @@ class TariffParams extends Base
             'to_location'   => [
                 'required',
                 function ($value) {
-                    if ($value instanceof TariffLocation) {
+                    if ($value instanceof Location) {
                         return $value->validate();
                     }
                     return false;

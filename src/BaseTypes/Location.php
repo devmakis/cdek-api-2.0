@@ -35,6 +35,20 @@ class Location extends Base
     public $region;
 
     /**
+     * Название района региона
+     * @Type("string")
+     * @var string
+     */
+    public $sub_region;
+
+    /**
+     * Код населенного пункта СДЭК (метод "Список населенных пунктов")
+     * @Type("int")
+     * @var int
+     */
+    public $code;
+
+    /**
      * Код населенного пункта СДЭК (метод "Список населенных пунктов")
      * @Type("int")
      * @var int
@@ -54,6 +68,13 @@ class Location extends Base
      * @var string
      */
     public $fias_guid;
+
+    /**
+     * Код КЛАДР
+     * @Type("string")
+     * @var string
+     */
+    public $kladr_code;
 
     /**
      * Почтовый индекс
@@ -98,16 +119,12 @@ class Location extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'country_code' => 'required|alpha:2',
-            'region_code'  => 'required|integer',
-            'region'       => 'required',
-            'city_code'    => 'required|integer',
-            'city'         => 'required',
-            'postal_code'  => 'required',
-            'longitude'    => 'required|numeric',
-            'latitude'     => 'required|numeric',
-            'address'      => 'required',
-            'address_full' => 'required'
+            'country_code' => 'alpha:2',
+            'region_code'  => 'integer',
+            'code'         => 'integer',
+            'city_code'    => 'integer',
+            'longitude'    => 'numeric',
+            'latitude'     => 'numeric'
         ];
     }
 }

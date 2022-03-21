@@ -3,8 +3,8 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\TariffList;
+use CdekSDK2\BaseTypes\Location;
 use CdekSDK2\BaseTypes\Package;
-use CdekSDK2\BaseTypes\TariffLocation;
 use CdekSDK2\BaseTypes\TariffParams;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
@@ -43,10 +43,8 @@ class TariffsTest extends TestCase
     {
         /** @var \CdekSDK2\BaseTypes\TariffParams $tariffParams */
         $tariffParams = TariffParams::create([
-            'from_location' => TariffLocation::create([
-
-            ]),
-            'to_location'   => TariffLocation::create([]),
+            'from_location' => Location::create([]),
+            'to_location'   => Location::create([]),
             'packages'      => Package::create([]),
         ]);
 
