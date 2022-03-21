@@ -40,6 +40,6 @@ class Barcodes extends Action
      */
     public function download(string $uuid): ApiResponse
     {
-        return $this->http_client->get($this->slug($uuid) . '.pdf');
+        return $this->http_client->get($this->slug($uuid));
     }
 }
