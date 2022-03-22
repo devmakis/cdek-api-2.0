@@ -180,6 +180,17 @@ class Order extends Base
     public $packages;
 
     /**
+     * Необходимость сформировать печатную форму по заказу
+     * может принимать значения:
+     * barcode - ШК мест (число копий - 1)
+     * waybill - квитанция (число копий - 2)
+     * @SkipWhenEmpty()
+     * @Type("string")
+     * @var string
+     */
+    public $print;
+
+    /**
      * Order constructor.
      * @param array $param
      */
@@ -192,49 +203,43 @@ class Order extends Base
             'sender'        => [
                 'required',
                 function ($value) {
-                    if ($value instanceof Contact) {
-                        return $value->validate();
-                    }
+                    return $value instanceof Contact && $value->validate();
                 }
             ],
             'recipient'     => [
                 'required',
                 function ($value) {
-                    if ($value instanceof Contact) {
-                        return $value->validate();
-                    }
+                    return $value instanceof Contact && $value->validate();
                 }
             ],
             'from_location' => [
                 'required',
                 function ($value) {
-                    if ($value instanceof Location) {
-                        return $value->validate();
-                    }
+                    return $value instanceof Location && $value->validate();
                 }
             ],
             'to_location'   => [
-                'required',
                 function ($value) {
-                    if ($value instanceof Location) {
-                        return $value->validate();
-                    }
+                    return $value instanceof Location && $value->validate();
                 }
             ],
             'packages'      => [
                 'required',
                 'array',
                 function ($value) {
-                    if (!is_array($value) || empty($value) || count($value) < 1) {
+                    if (!is_array($value) || empty($value)) {
                         return false;
                     }
-                    $i = 0;
+                    $check = false;
                     foreach ($value as $item) {
                         if ($item instanceof Package) {
-                            $i += (int)$item->validate();
+                            $check = $item->validate();
+                            if (!$check) {
+                                return false;
+                            }
                         }
                     }
-                    return ($i === count($value));
+                    return $check;
                 }
             ],
         ];
