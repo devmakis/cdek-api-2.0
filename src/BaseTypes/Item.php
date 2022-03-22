@@ -101,7 +101,7 @@ class Item extends Base
      * @Type("bool")
      * @var bool
      */
-    public $wifi_gsm = false;
+    public $wifi_gsm;
 
     /**
      * Ссылка на сайт интернет-магазина с описанием товара
