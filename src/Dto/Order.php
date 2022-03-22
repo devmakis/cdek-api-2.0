@@ -2,36 +2,49 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Dto;
 
+use CdekSDK2\BaseTypes\Contact;
+use CdekSDK2\BaseTypes\Location;
+use CdekSDK2\BaseTypes\Money;
+use CdekSDK2\BaseTypes\Package;
+use CdekSDK2\BaseTypes\Seller;
+use CdekSDK2\BaseTypes\Service;
+use CdekSDK2\BaseTypes\Threshold;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Order
- * @package CdekSDK2\BaseTypes
+ * Class OrderInfo
+ * @package CdekSDK2\Dto
  */
-class Order extends Base
+class Order extends Entity
 {
     /**
-     * Идентификатор заказа
-     * @SkipWhenEmpty()
-     * @Type("string")
-     * @var string
+     * Признак возвратного заказа
+     * @Type("bool")
+     * @var bool
      */
-    public $uuid;
+    public $is_return;
+
+    /**
+     * Признак реверсного заказа
+     * @Type("bool")
+     * @var bool
+     */
+    public $is_reverse;
 
     /**
      * Тип заказа
      * @Type("int")
      * @var int
      */
-    public $type = 1;
+    public $type;
 
     /**
      * Номер заказа в системе СДЭК
-     * @Type("int")
-     * @var int
+     * @Type("string")
+     * @var string
      */
     public $cdek_number;
 
@@ -41,6 +54,13 @@ class Order extends Base
      * @var string
      */
     public $number;
+
+    /**
+     * Истинный режим заказа
+     * @Type("string")
+     * @var string
+     */
+    public $delivery_mode;
 
     /**
      * Код тарифа
@@ -65,7 +85,6 @@ class Order extends Base
 
     /**
      * Код ПВЗ для забора
-     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -73,7 +92,6 @@ class Order extends Base
 
     /**
      * Код ПВЗ СДЭК для доставки
-     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -81,7 +99,6 @@ class Order extends Base
 
     /**
      * Код валюты объявленной стоимости заказа
-     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -89,7 +106,6 @@ class Order extends Base
 
     /**
      * Код валюты наложенного платежа
-     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -180,68 +196,16 @@ class Order extends Base
     public $packages;
 
     /**
-     * Необходимость сформировать печатную форму по заказу
-     * может принимать значения:
-     * barcode - ШК мест (число копий - 1)
-     * waybill - квитанция (число копий - 2)
-     * @SkipWhenEmpty()
-     * @Type("string")
-     * @var string
+     * Список статусов по заказу, отсортированных по дате и времени
+     * @Type("array<CdekSDK2\Dto\Statuses>")
+     * @var Statuses[]
      */
-    public $print;
+    public $statuses;
 
     /**
-     * Order constructor.
-     * @param array $param
+     * Информация о вручении
+     * @Type("CdekSDK2\Dto\DeliveryDetail")
+     * @var DeliveryDetail
      */
-    public function __construct(array $param = [])
-    {
-        parent::__construct($param);
-        $this->rules = [
-            'tariff_code'   => 'required|numeric',
-            'services'      => 'array',
-            'sender'        => [
-                'required',
-                function ($value) {
-                    return $value instanceof Contact && $value->validate();
-                }
-            ],
-            'recipient'     => [
-                'required',
-                function ($value) {
-                    return $value instanceof Contact && $value->validate();
-                }
-            ],
-            'from_location' => [
-                'required',
-                function ($value) {
-                    return $value instanceof Location && $value->validate();
-                }
-            ],
-            'to_location'   => [
-                function ($value) {
-                    return $value instanceof Location && $value->validate();
-                }
-            ],
-            'packages'      => [
-                'required',
-                'array',
-                function ($value) {
-                    if (!is_array($value) || empty($value)) {
-                        return false;
-                    }
-                    $check = false;
-                    foreach ($value as $item) {
-                        if ($item instanceof Package) {
-                            $check = $item->validate();
-                            if (!$check) {
-                                return false;
-                            }
-                        }
-                    }
-                    return $check;
-                }
-            ],
-        ];
-    }
+    public $delivery_detail;
 }

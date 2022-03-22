@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\TariffParams;
 use CdekSDK2\Exceptions\RequestException;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\TariffParams;
 
 /**
  * Class Tariff

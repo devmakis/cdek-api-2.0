@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\TariffParams;
-use CdekSDK2\Http\ApiResponse;
 use CdekSDK2\Exceptions\RequestException;
+use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\TariffParams;
 
 /**
  * Class TariffList
@@ -22,7 +22,7 @@ class TariffList extends Action
     public const URL = '/calculator/tarifflist';
 
     /**
-     * @param TariffParams $tariffParams
+     * @param \CdekSDK2\Params\TariffParams $tariffParams
      * @return ApiResponse
      * @throws RequestException
      */

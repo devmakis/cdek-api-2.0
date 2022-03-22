@@ -10,9 +10,9 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\Orders;
-use CdekSDK2\BaseTypes\Order;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\OrderParams;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -47,8 +47,8 @@ class OrdersTest extends TestCase
     public function testAdd()
     {
         $order_number = uniqid('sdk-test', true);
-        /** @var Order $order */
-        $order = Order::create([
+        /** @var \CdekSDK2\Params\OrderParams $order */
+        $order = OrderParams::create([
             'number' => $order_number,
             'tariff_code' => '11',
             'comment' => 'test comment',

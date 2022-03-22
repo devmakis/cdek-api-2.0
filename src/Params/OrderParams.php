@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\Dto;
+namespace CdekSDK2\Params;
 
 use CdekSDK2\BaseTypes\Contact;
 use CdekSDK2\BaseTypes\Location;
@@ -11,45 +11,23 @@ use CdekSDK2\BaseTypes\Package;
 use CdekSDK2\BaseTypes\Seller;
 use CdekSDK2\BaseTypes\Service;
 use CdekSDK2\BaseTypes\Threshold;
-use JMS\Serializer\Annotation\SkipWhenEmpty;
-use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Order
- * @package CdekSDK2\Dto
+ * Class OrderParams
+ * @package CdekSDK2\BaseTypes
  */
-class OrderInfo
+class OrderParams extends BaseParams
 {
-    /**
-     * Идентификатор заказа
-     * @Type("string")
-     * @var string
-     */
-    public $uuid;
-
     /**
      * Тип заказа
      * @Type("int")
      * @var int
      */
-    public $type;
-
-    /**
-     * Признак возвратного заказа
-     * @Type("bool")
-     * @var bool
-     */
-    public $is_return;
-
-    /**
-     * Номер заказа в системе СДЭК
-     * @Type("int")
-     * @var int
-     */
-    public $cdek_number;
+    public $type = 1;
 
     /**
      * Номер заказа в ИС Клиента
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -64,6 +42,7 @@ class OrderInfo
 
     /**
      * Комментарий к заказу
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -71,6 +50,7 @@ class OrderInfo
 
     /**
      * Ключ разработчика
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -78,6 +58,7 @@ class OrderInfo
 
     /**
      * Код ПВЗ для забора
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -85,27 +66,15 @@ class OrderInfo
 
     /**
      * Код ПВЗ СДЭК для доставки
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
     public $delivery_point;
 
     /**
-     * Код валюты объявленной стоимости заказа
-     * @Type("string")
-     * @var string
-     */
-    public $items_cost_currency;
-
-    /**
-     * Код валюты наложенного платежа
-     * @Type("string")
-     * @var string
-     */
-    public $recipient_currency;
-
-    /**
      * Дата инвойса
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -113,6 +82,7 @@ class OrderInfo
 
     /**
      * Грузоотправитель
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -120,6 +90,7 @@ class OrderInfo
 
     /**
      * Адрес грузоотправителя
+     * @SkipWhenEmpty()
      * @Type("string")
      * @var string
      */
@@ -127,6 +98,7 @@ class OrderInfo
 
     /**
      * Стоимость доставки, которую ИМ берет с получателя
+     * @SkipWhenEmpty()
      * @Type("CdekSDK2\BaseTypes\Money")
      * @var Money
      */
@@ -134,6 +106,7 @@ class OrderInfo
 
     /**
      * Доп. сбор за доставку (которую ИМ берет с получателя) в зависимости от суммы заказа
+     * @SkipWhenEmpty()
      * @Type("array<CdekSDK2\BaseTypes\Threshold>")
      * @var Threshold[]
      */
@@ -141,6 +114,7 @@ class OrderInfo
 
     /**
      * Отправитель
+     * @SkipWhenEmpty()
      * @Type("CdekSDK2\BaseTypes\Contact")
      * @var Contact
      */
@@ -148,6 +122,7 @@ class OrderInfo
 
     /**
      * Реквизиты реального продавца
+     * @SkipWhenEmpty()
      * @Type("CdekSDK2\BaseTypes\Seller")
      * @var Seller
      */
@@ -169,6 +144,7 @@ class OrderInfo
 
     /**
      * Адрес получения
+     * @SkipWhenEmpty()
      * @Type("CdekSDK2\BaseTypes\Location")
      * @var Location
      */
@@ -176,6 +152,7 @@ class OrderInfo
 
     /**
      * Дополнительные услуги
+     * @SkipWhenEmpty()
      * @Type("array<CdekSDK2\BaseTypes\Service>")
      * @var Service[]
      */
@@ -189,16 +166,67 @@ class OrderInfo
     public $packages;
 
     /**
-     * Список статусов по заказу, отсортированных по дате и времени
-     * @Type("array<CdekSDK2\Dto\Statuses>")
-     * @var Statuses[]
+     * Необходимость сформировать печатную форму по заказу
+     * может принимать значения:
+     * barcode - ШК мест (число копий - 1)
+     * waybill - квитанция (число копий - 2)
+     * @SkipWhenEmpty()
+     * @Type("string")
+     * @var string
      */
-    public $statuses;
+    public $print;
 
     /**
-     * Информация о вручении
-     * @Type("CdekSDK2\Dto\DeliveryDetail")
-     * @var DeliveryDetail
+     * Order constructor.
+     * @param array $param
      */
-    public $delivery_detail;
+    public function __construct(array $param = [])
+    {
+        parent::__construct($param);
+        $this->rules = [
+            'tariff_code'   => 'required|numeric',
+            'services'      => 'array',
+            'sender'        => [
+                function ($value) {
+                    return $value instanceof Contact && $value->validate();
+                }
+            ],
+            'recipient'     => [
+                'required',
+                function ($value) {
+                    return $value instanceof Contact && $value->validate();
+                }
+            ],
+            'from_location' => [
+                'required',
+                function ($value) {
+                    return $value instanceof Location && $value->validate();
+                }
+            ],
+            'to_location'   => [
+                function ($value) {
+                    return $value instanceof Location && $value->validate();
+                }
+            ],
+            'packages'      => [
+                'required',
+                'array',
+                function ($value) {
+                    if (!is_array($value) || empty($value)) {
+                        return false;
+                    }
+                    $check = false;
+                    foreach ($value as $item) {
+                        if ($item instanceof Package) {
+                            $check = $item->validate();
+                            if (!$check) {
+                                return false;
+                            }
+                        }
+                    }
+                    return $check;
+                }
+            ],
+        ];
+    }
 }

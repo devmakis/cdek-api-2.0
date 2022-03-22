@@ -168,7 +168,7 @@ use CdekSDK2\BaseTypes;
 
 $cdek = new \CdekSDK2\Client($client, 'account', 'secure');
 
-$order = BaseTypes\Order::create([
+$order = \CdekSDK2\Params\OrderParams::create([
     'number' => '3627',
     'tariff_code' => '1',
     'sender' => BaseTypes\Contact::create([
@@ -214,7 +214,7 @@ try {
     $result = $cdek->orders()->add($order);
     if ($result->isOk()) {
         //Запрос успешно выполнился
-        $response_order = $cdek->formatResponse($result, BaseTypes\Order::class);
+        $response_order = $cdek->formatResponse($result,\CdekSDK2\Dto\Entity::class);
         // получаем UUID заказа и сохраняем его
         $response_order->entity->uuid;
     }
@@ -226,7 +226,7 @@ try {
 }
 
 ```
-В случае успеха - мы преобразуем ответ системы в наш класс Order, и извлекаем его `uuid` для дальнейших операций.
+В случае успеха - мы преобразуем ответ системы в класс Entity, и извлекаем его `uuid` для дальнейших операций.
 
 
 ### Получение информации по заказу {: #orders_get }
@@ -237,7 +237,7 @@ $cdek = new \CdekSDK2\Client($client, 'account', 'secure');
 $result = $cdek->orders()->get($uuid);
 if ($result->isOk()) {
     //Запрос успешно выполнился
-    $response_order = $cdek->formatResponse($result, \CdekSDK2\Dto\OrderInfo::class);
+    $response_order = $cdek->formatResponse($result, \CdekSDK2\Dto\Order::class);
     $response_order->entity->uuid;
 }
 
@@ -257,7 +257,7 @@ if ($result->hasErrors()) {
 
 if ($result->isOk()) {
     //Запрос успешно выполнился
-    $response_order = $cdek->formatResponse($result, \CdekSDK2\BaseTypes\Order::class);
+    $response_order = $cdek->formatResponse($result, \CdekSDK2\Dto\Entity::class);
     $response_order->entity->uuid;
 }
 

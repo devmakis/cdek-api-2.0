@@ -60,7 +60,7 @@ $cdek->setAccount('account');
 $cdek->setSecure('secure');
 
 // создание заказа
-$order = \CdekSDK2\BaseTypes\Order::create([...]);
+$order = \CdekSDK2\Params\OrderParams::create([...]);
 $res = $cdek->orders()->add($order);
 
 if ($res->hasErrors()) {
@@ -71,14 +71,14 @@ if ($res->hasErrors()) {
 }
 
 if ($res->isOk()) {
-    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\BaseTypes\Order::class);
+    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\Entity::class);
 //    $cdek_order->entity->uuid;
 }
 
 // получение информации о заказе
 $res = $cdek->orders()->get($cdek_order->entity->uuid);
 if ($res->isOk()) {
-    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\OrderInfo::class);
+    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\Order::class);
 }
 
 //получить список офисов

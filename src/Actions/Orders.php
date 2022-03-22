@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\Order;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\OrderParams;
 
 /**
  * Class Orders
@@ -21,11 +21,11 @@ class Orders extends ActionsWithDelete
 
     /**
      * Создание заказа
-     * @param Order $order
+     * @param OrderParams $order
      * @return ApiResponse
      * @throws \CdekSDK2\Exceptions\RequestException
      */
-    public function add(Order $order): ApiResponse
+    public function add(OrderParams $order): ApiResponse
     {
         $params = $this->serializer->toArray($order);
         return $this->post($params);

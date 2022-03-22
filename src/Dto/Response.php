@@ -7,7 +7,6 @@ namespace CdekSDK2\Dto;
 use CdekSDK2\BaseTypes\Barcode;
 use CdekSDK2\BaseTypes\Intake;
 use CdekSDK2\BaseTypes\Invoice;
-use CdekSDK2\BaseTypes\Order;
 use CdekSDK2\BaseTypes\WebHook;
 use JMS\Serializer\Annotation\Type;
 
@@ -21,7 +20,7 @@ class Response
      * Информация о сущности, над которой выполняется запрос
      * (заказ, заявка, печатная форма, договоренность о доставке, подписка)
      * @Type("CdekSDK2\BaseTypes\WebHook")
-     * @var Barcode | Intake | Invoice | Order | WebHook | OrderInfo
+     * @var Barcode | Intake | Invoice | Order | WebHook | Order
      */
     public $entity;
 
