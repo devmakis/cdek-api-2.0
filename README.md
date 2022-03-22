@@ -78,7 +78,7 @@ if ($res->isOk()) {
 // получение информации о заказе
 $res = $cdek->orders()->get($cdek_order->entity->uuid);
 if ($res->isOk()) {
-    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\Order::class);
+    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\OrderDto::class);
 }
 
 //получить список офисов

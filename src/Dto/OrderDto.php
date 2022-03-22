@@ -15,10 +15,10 @@ use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class OrderInfo
+ * Class OrderDto
  * @package CdekSDK2\Dto
  */
-class Order extends Entity
+class OrderDto extends Entity
 {
     /**
      * Признак возвратного заказа
