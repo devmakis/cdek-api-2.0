@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\Barcode;
 use CdekSDK2\Exceptions\RequestException;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\BarcodeParams;
 
 /**
  * Class Barcodes
@@ -22,11 +22,11 @@ class Barcodes extends Action
 
     /**
      * Запрос на формирование ШК-места к заказу
-     * @param Barcode $barcode
+     * @param BarcodeParams $barcode
      * @return ApiResponse
      * @throws RequestException
      */
-    public function add(Barcode $barcode): ApiResponse
+    public function add(BarcodeParams $barcode): ApiResponse
     {
         $params = $this->serializer->toArray($barcode);
         return $this->post($params);
@@ -40,6 +40,6 @@ class Barcodes extends Action
      */
     public function download(string $uuid): ApiResponse
     {
-        return $this->http_client->get($this->slug($uuid));
+        return $this->http_client->get($this->slug($uuid) . '.pdf');
     }
 }

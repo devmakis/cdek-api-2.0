@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\Invoice;
 use CdekSDK2\Exceptions\RequestException;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\InvoiceParams;
 
 /**
  * Class Invoices
@@ -22,11 +22,11 @@ class Invoices extends Action
 
     /**
      * Запрос на формирование квитанции к заказу
-     * @param Invoice $invoice
+     * @param InvoiceParams $invoice
      * @return ApiResponse
      * @throws RequestException
      */
-    public function add(Invoice $invoice): ApiResponse
+    public function add(InvoiceParams $invoice): ApiResponse
     {
         $params = $this->serializer->toArray($invoice);
         return $this->post($params);
@@ -40,6 +40,6 @@ class Invoices extends Action
      */
     public function download(string $uuid): ApiResponse
     {
-        return $this->http_client->get($this->slug($uuid));
+        return $this->http_client->get($this->slug($uuid) . '.pdf');
     }
 }
