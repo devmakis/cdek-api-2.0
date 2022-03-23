@@ -362,7 +362,7 @@ if ($input_hook->type === \CdekSDK2\Constants::HOOK_PRINT_STATUS) {
     // и можно получать ссылку на PDF файл и скачать его
     $input_hook->attributes->url;
     $input_hook->attributes->type;
-    if ($input_hook->attributes->type === \CdekSDK2\Constants::PRINT_TYPE_INVOICE) {
+    if ($input_hook->attributes->type === \CdekSDK2\Constants::PRINT_TYPE_WAYBILL) {
         $cdek->invoice()->download($input_hook->uuid);
     } else {
         $cdek->barcodes()->download($input_hook->uuid);
