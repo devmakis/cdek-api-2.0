@@ -29,18 +29,6 @@ class Constants
     public const HOOK_TYPE_OTHER = 'ANYTHING_OTHER';
 
     /**
-     * Печатная форма - штрих коды для упаковки
-     * @var string
-     */
-    public const PRINT_TYPE_BARCODE = 'barcode';
-
-    /**
-     * Печатная форма - накладная для заказа
-     * @var string
-     */
-    public const PRINT_TYPE_WAYBILL = 'waybill';
-
-    /**
      * Ошибка авторизации
      * @var string
      */
@@ -501,31 +489,35 @@ class Constants
     public const RELATION_RETURN_ORDER = 'return_order';
 
     /**
-     * Тип связанной сущности: прямой заказ (возвращается для возвратного)
+     * Тип связанной сущности: прямой заказ
+     * (возвращается для возвратного)
      * @var string
      */
     public const RELATION_DIRECT_ORDER = 'direct_order';
 
     /**
-     * Тип связанной сущности: заявка на вызов курьера
-     * @var string
-     */
-    public const RELATION_INTAKE = 'intake';
-
-    /**
      * Тип связанной сущности: квитанция к заказу
+     * (возвращается для заказа, по которому есть сформированная квитанция)
      * @var string
      */
-    public const RELATION_RECEIPT = 'receipt';
+    public const RELATION_WAYBILL = 'waybill';
 
     /**
      * Тип связанной сущности: ШК-место к заказу
+     * (возвращается для заказа, по которому есть сформированный ШК места)
      * @var string
      */
     public const RELATION_BARCODE = 'barcode';
 
     /**
-     * Тип связанной сущности: договоренность о доставке (актуальная)
+     * Тип связанной сущности: реверсный заказ
+     * (возвращается для прямого заказа, если подключен реверс)
+     * @var string
+     */
+    public const RELATION_REVERSE_ORDER = 'reverse_order';
+
+    /**
+     * Тип связанной сущности: актуальная договоренность о доставке
      * @var string
      */
     public const RELATION_DELIVERY = 'delivery';

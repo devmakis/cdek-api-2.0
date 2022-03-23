@@ -76,7 +76,7 @@ class WebhooksTest extends TestCase
         $hook = $this->webhooks->parse($input_hook);
         $this->assertInstanceOf(InputHook::class, $hook);
         $this->assertStringContainsString(Constants::HOOK_PRINT_STATUS, $hook->type);
-        $this->assertStringContainsString(Constants::PRINT_TYPE_BARCODE, $hook->attributes->type);
+        $this->assertStringContainsString(Constants::RELATION_BARCODE, $hook->attributes->type);
     }
 
     public function testParseHookFailData()
