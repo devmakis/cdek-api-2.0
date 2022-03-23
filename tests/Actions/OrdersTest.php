@@ -94,7 +94,7 @@ class OrdersTest extends TestCase
 
         $this->assertTrue($order->validate());
 
-        $response = $this->orders->add($order);
+        $response = $this->orders->create($order);
         $this->assertInstanceOf(ApiResponse::class, $response);
 
         $this->assertTrue($response->isOk());

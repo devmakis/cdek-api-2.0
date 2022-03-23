@@ -211,7 +211,7 @@ $order = \CdekSDK2\Params\OrderParams::create([
 ]);
 
 try {
-    $result = $cdek->orders()->add($order);
+    $result = $cdek->orders()->create($order);
     if ($result->isOk()) {
         //Запрос успешно выполнился
         $response_order = $cdek->formatResponse($result,\CdekSDK2\Dto\EntityDto::class);

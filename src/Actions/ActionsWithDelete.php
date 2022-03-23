@@ -20,7 +20,6 @@ class ActionsWithDelete extends Action
      */
     public function delete(string $uuid): ApiResponse
     {
-        $response = $this->http_client->delete($this->slug($uuid));
-        return $response;
+        return $this->http_client->delete($this->slug($uuid));
     }
 }

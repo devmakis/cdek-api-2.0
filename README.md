@@ -61,7 +61,7 @@ $cdek->setSecure('secure');
 
 // создание заказа
 $order = \CdekSDK2\Params\OrderParams::create([...]);
-$res = $cdek->orders()->add($order);
+$res = $cdek->orders()->create($order);
 
 if ($res->hasErrors()) {
     // Обрабатываем ошибки
