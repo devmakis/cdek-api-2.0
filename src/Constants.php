@@ -308,10 +308,28 @@ class Constants
     public const STATUS_CREATED = 'CREATED';
 
     /**
+     * Статус: Сформирован
+     * @var string
+     */
+    public const STATUS_READY = 'READY';
+
+    /**
+     * Статус: Формируется
+     * @var string
+     */
+    public const STATUS_PROCESSING = 'PROCESSING';
+
+    /**
      * Статус: Удален
      * @var string
      */
-    public const STATUS_DELETED = 'REMOVED';
+    public const STATUS_REMOVED = 'REMOVED';
+
+    /**
+     * Статус: Некорректный запрос
+     * @var string
+     */
+    public const STATUS_INVALID = 'INVALID';
 
     /**
      * Статус: Принят на склад отправителя
