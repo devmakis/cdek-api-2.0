@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
-use CdekSDK2\BaseTypes\Contact;
-use CdekSDK2\BaseTypes\Location;
-use CdekSDK2\BaseTypes\Money;
-use CdekSDK2\BaseTypes\Package;
-use CdekSDK2\BaseTypes\Seller;
-use CdekSDK2\BaseTypes\Service;
-use CdekSDK2\BaseTypes\Threshold;
+use CdekSDK2\Types\Contact;
+use CdekSDK2\Types\Location;
+use CdekSDK2\Types\Money;
+use CdekSDK2\Types\Package;
+use CdekSDK2\Types\Threshold;
+use JMS\Serializer\Annotation\SkipWhenEmpty;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class OrderParams
@@ -99,7 +99,7 @@ class OrderParams extends BaseParams
     /**
      * Стоимость доставки, которую ИМ берет с получателя
      * @SkipWhenEmpty()
-     * @Type("CdekSDK2\BaseTypes\Money")
+     * @Type("CdekSDK2\Types\Money")
      * @var Money
      */
     public $delivery_recipient_cost;
@@ -107,7 +107,7 @@ class OrderParams extends BaseParams
     /**
      * Доп. сбор за доставку (которую ИМ берет с получателя) в зависимости от суммы заказа
      * @SkipWhenEmpty()
-     * @Type("array<CdekSDK2\BaseTypes\Threshold>")
+     * @Type("array<CdekSDK2\Types\Threshold>")
      * @var Threshold[]
      */
     public $delivery_recipient_cost_adv;
@@ -115,7 +115,7 @@ class OrderParams extends BaseParams
     /**
      * Отправитель
      * @SkipWhenEmpty()
-     * @Type("CdekSDK2\BaseTypes\Contact")
+     * @Type("CdekSDK2\Types\Contact")
      * @var Contact
      */
     public $sender;
@@ -123,21 +123,21 @@ class OrderParams extends BaseParams
     /**
      * Реквизиты реального продавца
      * @SkipWhenEmpty()
-     * @Type("CdekSDK2\BaseTypes\Seller")
-     * @var Seller
+     * @Type("CdekSDK2\Types\Seller")
+     * @var \CdekSDK2\Types\Seller
      */
     public $seller;
 
     /**
      * Получатель
-     * @Type("CdekSDK2\BaseTypes\Contact")
+     * @Type("CdekSDK2\Types\Contact")
      * @var Contact
      */
     public $recipient;
 
     /**
      * Адрес отправления
-     * @Type("CdekSDK2\BaseTypes\Location")
+     * @Type("CdekSDK2\Types\Location")
      * @var Location
      */
     public $from_location;
@@ -145,7 +145,7 @@ class OrderParams extends BaseParams
     /**
      * Адрес получения
      * @SkipWhenEmpty()
-     * @Type("CdekSDK2\BaseTypes\Location")
+     * @Type("CdekSDK2\Types\Location")
      * @var Location
      */
     public $to_location;
@@ -153,14 +153,14 @@ class OrderParams extends BaseParams
     /**
      * Дополнительные услуги
      * @SkipWhenEmpty()
-     * @Type("array<CdekSDK2\BaseTypes\Service>")
-     * @var Service[]
+     * @Type("array<CdekSDK2\Types\Service>")
+     * @var \CdekSDK2\Types\Service[]
      */
     public $services;
 
     /**
      * Список информации по местам
-     * @Type("array<CdekSDK2\BaseTypes\Package>")
+     * @Type("array<CdekSDK2\Types\Package>")
      * @var Package[]
      */
     public $packages;

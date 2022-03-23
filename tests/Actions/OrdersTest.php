@@ -52,35 +52,37 @@ class OrdersTest extends TestCase
             'number' => $order_number,
             'tariff_code' => '11',
             'comment' => 'test comment',
-            'sender' => \CdekSDK2\BaseTypes\Contact::create([
+            'sender' => \CdekSDK2\Types\Contact::create([
                 'name' => 'Иван Васильев',
                 'phones' => [
-                    \CdekSDK2\BaseTypes\Phone::create(['number' => '+79531234567'])
+                    \CdekSDK2\Types\Phone::create(['number' => '+79531234567'])
                 ]
             ]),
-            'recipient' => \CdekSDK2\BaseTypes\Contact::create([
+            'recipient' => \CdekSDK2\Types\Contact::create([
                 'name' => 'Витька Балотоев',
                 'email' => 'vasja@cdek.it',
                 'phones' => [
-                    \CdekSDK2\BaseTypes\Phone::create(['number' => '+79531234567'])
+                    \CdekSDK2\Types\Phone::create(['number' => '+79531234567'])
                 ]
             ]),
             'delivery_recipient_cost_adv' => [
-                \CdekSDK2\BaseTypes\Threshold::create(['sum' => 200, 'threshold' => 1000]),
+                \CdekSDK2\Types\Threshold::create(['sum' => 200, 'threshold' => 1000]),
             ],
-            'from_location' => \CdekSDK2\BaseTypes\Location::create(['address' => 'Ленина 23-1', 'code' => 270]),
-            'to_location' => \CdekSDK2\BaseTypes\Location::create(['address' => 'Марата, 47-49', 'code' => 137]),
-            'packages' => [\CdekSDK2\BaseTypes\Package::create([
+            'from_location' => \CdekSDK2\Types\Location::create(['address' => 'Ленина 23-1', 'code' => 270]),
+            'to_location' => \CdekSDK2\Types\Location::create(['address' => 'Марата, 47-49', 'code' => 137]),
+            'packages' => [
+                \CdekSDK2\Types\Package::create([
                 'number' => $order_number,
                 'weight' => 1000,
                 'length' => 10.8,
                 'width' => 11.0,
                 'height' => 11.1,
                 'comment' => 'comment Package number',
-                'items' => [\CdekSDK2\BaseTypes\Item::create([
+                'items' => [
+                    \CdekSDK2\Types\Item::create([
                     'name' => 'item name',
                     'ware_key' => 'YUQT23DA8734',
-                    'payment' => \CdekSDK2\BaseTypes\Money::create([
+                    'payment' => \CdekSDK2\Types\Money::create([
                         'value' => 0,
                     ]),
                     'cost' => 0,

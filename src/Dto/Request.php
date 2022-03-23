@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Dto;
 
+use CdekSDK2\Types\Error;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -44,7 +45,7 @@ class Request
 
     /**
      * Список ошибок
-     * @Type("array<CdekSDK2\Dto\Error>")
+     * @Type("array<CdekSDK2\Types\Error>")
      * @var Error[]
      */
     public $errors;

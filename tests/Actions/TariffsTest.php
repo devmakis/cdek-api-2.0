@@ -3,11 +3,11 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\TariffList;
-use CdekSDK2\BaseTypes\Location;
-use CdekSDK2\BaseTypes\Package;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
 use CdekSDK2\Params\TariffParams;
+use CdekSDK2\Types\Location;
+use CdekSDK2\Types\Package;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use PHPUnit\Framework\TestCase;

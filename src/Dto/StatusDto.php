@@ -6,7 +6,7 @@ namespace CdekSDK2\Dto;
 
 use JMS\Serializer\Annotation\Type;
 
-class ResponseStatus
+class StatusDto
 {
     /**
      * Код статуса

@@ -71,7 +71,7 @@ if ($res->hasErrors()) {
 }
 
 if ($res->isOk()) {
-    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\Entity::class);
+    $cdek_order = $cdek->formatResponse($res, \CdekSDK2\Dto\EntityDto::class);
 //    $cdek_order->entity->uuid;
 }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\Type;
 
@@ -16,13 +16,14 @@ class Phone extends Base
 
     /**
      * Номер телефона
+     * Необходимо передавать в международном формате: код страны (для России +7) и сам номер (10 и более цифр)
      * @Type("string")
      * @var string
      */
     public $number;
 
     /**
-     * Добавочный номер
+     * Дополнительная информация (добавочный номер)
      * @Type("string")
      * @var string
      */

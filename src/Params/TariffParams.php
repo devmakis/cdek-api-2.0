@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
-use CdekSDK2\BaseTypes\Location;
-use CdekSDK2\BaseTypes\Package;
-use CdekSDK2\BaseTypes\Service;
+use CdekSDK2\Types\Location;
+use CdekSDK2\Types\Package;
+use CdekSDK2\Types\Service;
+use JMS\Serializer\Annotation\SkipWhenEmpty;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class TariffParams
@@ -63,21 +65,21 @@ class TariffParams extends BaseParams
 
     /**
      * Адрес отправления
-     * @Type("CdekSDK2\BaseTypes\Location")
+     * @Type("CdekSDK2\Types\Location")
      * @var Location
      */
     public $from_location;
 
     /**
      * Адрес получения
-     * @Type("CdekSDK2\BaseTypes\Location")
+     * @Type("CdekSDK2\Types\Location")
      * @var Location
      */
     public $to_location;
 
     /**
      * Список информации по местам (упаковкам)
-     * @Type("array<CdekSDK2\BaseTypes\Package>")
+     * @Type("array<CdekSDK2\Types\Package>")
      * @var Package[]
      */
     public $packages;
@@ -85,8 +87,8 @@ class TariffParams extends BaseParams
     /**
      * Дополнительные услуги
      * @SkipWhenEmpty()
-     * @Type("array<CdekSDK2\BaseTypes\Service>")
-     * @var Service[]
+     * @Type("array<CdekSDK2\Types\Service>")
+     * @var \CdekSDK2\Types\Service[]
      */
     public $services;
 
@@ -105,19 +107,13 @@ class TariffParams extends BaseParams
             'from_location' => [
                 'required',
                 function ($value) {
-                    if ($value instanceof Location) {
-                        return $value->validate();
-                    }
-                    return false;
+                    return $value instanceof Location && $value->validate();
                 }
             ],
             'to_location'   => [
                 'required',
                 function ($value) {
-                    if ($value instanceof Location) {
-                        return $value->validate();
-                    }
-                    return false;
+                    return $value instanceof Location && $value->validate();
                 }
             ],
             'packages'      => [

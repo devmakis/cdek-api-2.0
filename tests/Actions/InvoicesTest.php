@@ -11,9 +11,9 @@ namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\Invoices;
 use CdekSDK2\BaseTypes\Invoice;
-use CdekSDK2\BaseTypes\OrdersList;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Types\PrintOrder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -49,7 +49,7 @@ class InvoicesTest extends TestCase
 
         $invoice = Invoice::create([
             'orders' => [
-                OrdersList::create([
+                PrintOrder::create([
                     'order_uuid' => 'fail-uuid'
                 ]),
             ],

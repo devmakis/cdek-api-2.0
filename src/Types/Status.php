@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\Dto;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Statuses
+ * Class Status
  * @package CdekSDK2\Dto
  */
-class Statuses
+class Status extends Base
 {
     /**
      * Код статуса
@@ -27,6 +27,13 @@ class Statuses
     public $name;
 
     /**
+     * Дата и время установки статуса (формат yyyy-MM-dd'T'HH:mm:ssZ)
+     * @Type("string")
+     * @var string
+     */
+    public $date_time;
+
+    /**
      * Дополнительный код статуса
      * @Type("string")
      * @var string
@@ -34,14 +41,7 @@ class Statuses
     public $reason_code;
 
     /**
-     * Дата и время установки статуса
-     * @Type("string")
-     * @var string
-     */
-    public $date_time;
-
-    /**
-     * Наименование города(места), где произошло изменение статуса
+     * Наименование места возникновения статуса
      * @Type("string")
      * @var string
      */
@@ -53,4 +53,17 @@ class Statuses
      * @var int
      */
     public $city_code;
+
+    /**
+     * @param array $param
+     */
+    public function __construct(array $param = [])
+    {
+        parent::__construct($param);
+        $this->rules = [
+            'code'      => 'required',
+            'name'      => 'required',
+            'date_time' => 'required'
+        ];
+    }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\Type;
 
@@ -48,9 +48,10 @@ class Threshold extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'threshold ' => 'required|numeric',
-            'sum ' => 'required|numeric',
-            'vat_sum' => 'numeric',
+            'threshold ' => 'required|integer',
+            'sum '       => 'required|numeric',
+            'vat_sum'    => 'numeric',
+            'vat_rate'   => 'integer',
         ];
     }
 }

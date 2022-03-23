@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\Type;
 
@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Type;
 class Item extends Base
 {
     /**
-     * Наименование товара
+     * Наименование товара (может также содержать описание товара: размер, цвет)
      * @Type("string")
      * @var string
      */
@@ -28,13 +28,14 @@ class Item extends Base
 
     /**
      * Оплата за товар при получении
-     * @Type("CdekSDK2\BaseTypes\Money")
+     * @Type("CdekSDK2\Types\Money")
      * @var Money
      */
     public $payment;
 
     /**
-     * Объявленная стоимость товара
+     * Объявленная стоимость товара (за единицу товара в указанной валюте, значение >=0).
+     * С данного значения рассчитывается страховка
      * @Type("float")
      * @var float
      */
@@ -120,17 +121,15 @@ class Item extends Base
         $this->rules = [
             'name'         => 'required',
             'ware_key'     => 'required',
-            'cost'         => 'required|numeric',
-            'weight'       => 'required|numeric',
-            'amount'       => 'required|integer',
             'payment'      => [
                 'required',
                 function ($value) {
-                    if ($value instanceof Money) {
-                        $value->validate();
-                    }
+                    return $value instanceof Money && $value->validate();
                 }
             ],
+            'cost'         => 'required|numeric',
+            'weight'       => 'required|numeric',
+            'amount'       => 'required|integer',
             'weight_gross' => 'numeric',
             'country_code' => 'alpha:2',
             'url'          => 'url',

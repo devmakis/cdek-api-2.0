@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\Type;
 
@@ -41,8 +41,9 @@ class Money extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'value'   => 'required|numeric',
-            'vat_sum' => 'numeric',
+            'value'    => 'required|numeric',
+            'vat_sum'  => 'numeric',
+            'vat_rate' => 'integer',
         ];
     }
 }

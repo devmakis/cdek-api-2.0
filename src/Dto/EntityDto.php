@@ -8,13 +8,14 @@
 
 namespace CdekSDK2\Dto;
 
+use CdekSDK2\Types\Base;
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Entity
  * @package CdekSDK2\Dto
  */
-class Entity
+class EntityDto extends Base
 {
     /**
      * Уникальный идентификатор
@@ -22,4 +23,12 @@ class Entity
      * @var string
      */
     public $uuid;
+
+    public function __construct(array $param = [])
+    {
+        parent::__construct($param);
+        $this->rules = [
+            'uuid' => 'required',
+        ];
+    }
 }

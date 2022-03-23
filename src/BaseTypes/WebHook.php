@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\BaseTypes;
 
-use JMS\Serializer\Annotation\Type;
+use CdekSDK2\Types\Base;
 
 /**
  * Class WebHook

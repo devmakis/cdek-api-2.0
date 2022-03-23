@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
@@ -22,8 +22,8 @@ class Package extends Base
     public $package_id;
 
     /**
-     * Номер упаковки
-     * @SkipWhenEmpty
+     * Номер упаковки (можно использовать порядковый номер упаковки заказа или номер заказа),
+     * уникален в пределах заказа.
      * @Type("string")
      * @var string
      */
@@ -84,7 +84,7 @@ class Package extends Base
     /**
      * Позиции товаров в упаковке
      * @SkipWhenEmpty
-     * @Type("array<CdekSDK2\BaseTypes\Item>")
+     * @Type("array<CdekSDK2\Types\Item>")
      * @var Item[]
      */
     public $items;
@@ -109,11 +109,19 @@ class Package extends Base
             'items'         => [
                 'array',
                 function ($value) {
+                    if (!is_array($value) || empty($value)) {
+                        return false;
+                    }
+                    $check = false;
                     foreach ($value as $item) {
-                        if ($item instanceof Item) {
-                            $item->validate();
+                        if ($item instanceof Phone) {
+                            $check = $item->validate();
+                            if (!$check) {
+                                return false;
+                            }
                         }
                     }
+                    return $check;
                 }
             ],
         ];

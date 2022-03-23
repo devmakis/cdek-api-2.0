@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
@@ -42,7 +42,7 @@ class Service extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'code'      => 'required|alpha',
+            'code'      => 'required|integer',
             'parameter' => 'alpha',
             'sum'       => 'numeric'
         ];

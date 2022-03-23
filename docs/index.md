@@ -101,20 +101,20 @@ if ($result->isOk()) {
 Во всех базовых классах реализована валидация данных, которая позволяет проверять введенные данные на корерктность, т.е. указаны минимальные требования для успешного выполнения запросов на стороне API СДЭК.
 
 ```php
-$sender = \CdekSDK2\BaseTypes\Contact::create([
+$sender = \CdekSDK2\Types\Contact::create([
     'name' => 'Иван Васильев',
     'company' => 'CDEK-IT',
     'email' => 'ivan.vasylyevich@cdek.it',
     'phones' => [
-        \CdekSDK2\BaseTypes\Phone::create(['number' => '+79998887777'])
+        \CdekSDK2\Types\Phone::create(['number' => '+79998887777'])
     ]
 ]);
 
-$rec = \CdekSDK2\BaseTypes\Contact::create([
+$rec = \CdekSDK2\Types\Contact::create([
     'name' => 'Витька Балотоев',
     'email' => 'vitya@cdek.it',
     'phones' => [
-        \CdekSDK2\BaseTypes\Phone::create(['number' => '+78008887777'])
+        \CdekSDK2\Types\Phone::create(['number' => '+78008887777'])
     ]
 ]);
 
@@ -164,43 +164,43 @@ try {
 ### Создание заказа {: #orders_add }
 
 ```php
-use CdekSDK2\BaseTypes;
+
 
 $cdek = new \CdekSDK2\Client($client, 'account', 'secure');
 
 $order = \CdekSDK2\Params\OrderParams::create([
     'number' => '3627',
     'tariff_code' => '1',
-    'sender' => BaseTypes\Contact::create([
+    'sender' => \CdekSDK2\Types\Contact::create([
         'name' => 'Vasya',
     ]),
-    'recipient' => BaseTypes\Contact::create([
+    'recipient' => \CdekSDK2\Types\Contact::create([
         'name' => 'Alexander',
         'phones' => [
-            BaseTypes\Phone::create(['number' => '88001234567'])
+            \CdekSDK2\Types\Phone::create(['number' => '88001234567'])
         ]
     ]),
-    'from_location' => BaseTypes\Location::create([
+    'from_location' => \CdekSDK2\Types\Location::create([
         'code' => 137,
         'country_code' => 'ru'
     ]),
-    'to_location' => BaseTypes\Location::create([
+    'to_location' => \CdekSDK2\Types\Location::create([
         'code' => 270,
         'country_code' => 'ru',
         'address' => 'Титова 21 кв 9'
     ]),
     'packages' => [
-        BaseTypes\Package::create([
+        \CdekSDK2\Types\Package::create([
             'number' => 'number1',
             'weight' => 1000,
             'length' => 12,
             'width' => 11,
             'height' => 8,
             'items' => [
-                BaseTypes\Item::create([
+                \CdekSDK2\Types\Item::create([
                     'name' => 'Toys for man',
                     'ware_key' => 'Items_number_5',
-                    'payment' => BaseTypes\Money::create(['value' => 0]),
+                    'payment' => \CdekSDK2\Types\Money::create(['value' => 0]),
                     'cost' => 0,
                     'weight' => 1000,
                     'amount' => 1,
@@ -214,7 +214,7 @@ try {
     $result = $cdek->orders()->add($order);
     if ($result->isOk()) {
         //Запрос успешно выполнился
-        $response_order = $cdek->formatResponse($result,\CdekSDK2\Dto\Entity::class);
+        $response_order = $cdek->formatResponse($result,\CdekSDK2\Dto\EntityDto::class);
         // получаем UUID заказа и сохраняем его
         $response_order->entity->uuid;
     }
@@ -257,7 +257,7 @@ if ($result->hasErrors()) {
 
 if ($result->isOk()) {
     //Запрос успешно выполнился
-    $response_order = $cdek->formatResponse($result, \CdekSDK2\Dto\Entity::class);
+    $response_order = $cdek->formatResponse($result, \CdekSDK2\Dto\EntityDto::class);
     $response_order->entity->uuid;
 }
 
@@ -380,12 +380,12 @@ if ($input_hook->type === \CdekSDK2\Constants::HOOK_PRINT_STATUS) {
 ```php
 use CdekSDK2\BaseTypes\Intake;
 
-$sender = \CdekSDK2\BaseTypes\Contact::create([
+$sender = \CdekSDK2\Types\Contact::create([
     'name' => 'Vasya',
     'company' => 'CDEK-IT',
     'email' => 'vasya@cdek.it',
     'phones' => [
-        \CdekSDK2\BaseTypes\Phone::create(['number' => '+79991112222'])
+        \CdekSDK2\Types\Phone::create(['number' => '+79991112222'])
     ]
 ]);
 
@@ -396,7 +396,7 @@ $intake->intake_time_to = '19:00';
 $intake->name = 'Ждем курьера за 20 товарами';
 $intake->weight = 10000;
 $intake->sender = $sender;
-$intake->from_location = \CdekSDK2\BaseTypes\Location::create([
+$intake->from_location = \CdekSDK2\Types\Location::create([
     'address' => 'Кутузовский проспект 1-1',
     'code' => 137,
     'country_code' => 'RU'
@@ -487,12 +487,11 @@ if ($result->isOk()) {
 ### Создание запроса на формирование печатной формы накладной {: #invoice_add }
 
 ```php
-use CdekSDK2\BaseTypes\Invoice;
-use CdekSDK2\BaseTypes\OrdersList;
+use CdekSDK2\BaseTypes\Invoice;use CdekSDK2\Types\PrintOrder;
 
 $invoice = Invoice::create([
     'orders' => [
-        OrdersList::create([
+        PrintOrder::create([
             'order_uuid' => 'uuid'
         ]),
     ],
@@ -555,15 +554,14 @@ if ($result->isOk()) {
 ### Создание запроса на формирование печатной формы ШК-места {: #barcodes_add }
 
 ```php
-use CdekSDK2\BaseTypes\Barcode;
-use CdekSDK2\BaseTypes\OrdersList;
+use CdekSDK2\BaseTypes\Barcode;use CdekSDK2\Types\PrintOrder;
 
 $invoice = Barcode::create([
     'orders' => [
-        OrdersList::create([
+        PrintOrder::create([
             'order_uuid' => 'uuid'
         ]),
-        OrdersList::create([
+        PrintOrder::create([
             'cdek_number' => 1111000110
         ]),
     ],

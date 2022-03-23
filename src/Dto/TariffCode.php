@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Dto;
 
-use CdekSDK2\BaseTypes\Service;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
@@ -78,8 +77,8 @@ class TariffCode
     /**
      * Дополнительные услуги
      * @SkipWhenEmpty()
-     * @Type("array<CdekSDK2\BaseTypes\Service>")
-     * @var Service[]
+     * @Type("array<CdekSDK2\Types\Service>")
+     * @var \CdekSDK2\Types\Service[]
      */
     public $services;
 }

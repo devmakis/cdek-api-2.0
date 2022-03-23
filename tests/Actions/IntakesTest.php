@@ -51,16 +51,16 @@ class IntakesTest extends TestCase
         $intake->intake_time_to = '19:00';
         $intake->name = uniqid('sdk-2.0-', true);
         $intake->weight = 10000;
-        $intake->sender = \CdekSDK2\BaseTypes\Contact::create([
+        $intake->sender = \CdekSDK2\Types\Contact::create([
             'name' => 'Иван Васильев',
             'company' => 'CDEK-IT',
             'email' => 'ivanvasjljev@cdek.it',
             'phones' => [
-                \CdekSDK2\BaseTypes\Phone::create(['number' => '+79999999999'])
+                \CdekSDK2\Types\Phone::create(['number' => '+79999999999'])
             ]
         ]);
         ;
-        $intake->from_location = \CdekSDK2\BaseTypes\Location::create([
+        $intake->from_location = \CdekSDK2\Types\Location::create([
             'address' => 'Кутузовский проспект 1-1',
             'code' => 137,
             'country_code' => 'RU'

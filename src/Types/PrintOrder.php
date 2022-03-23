@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Types;
 
 use JMS\Serializer\Annotation\Type;
 
-class OrdersList extends Base
+class PrintOrder extends Base
 {
     /**
      * Идентификатор заказа
@@ -22,12 +22,15 @@ class OrdersList extends Base
      */
     public $cdek_number;
 
+    /**
+     * @param array $param
+     */
     public function __construct(array $param = [])
     {
         parent::__construct($param);
         $this->rules = [
-            'order_uuid' => 'alpha_dash',
-            'cdek_number' => 'required_if:order_uuid,==,|integer',
+            'order_uuid'  => 'required_with:cdek_number|alpha_dash',
+            'cdek_number' => 'required_with:order_uuid|integer',
         ];
     }
 }
