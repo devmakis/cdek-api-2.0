@@ -14,12 +14,7 @@ use CdekSDK2\Actions\Orders;
 use CdekSDK2\Actions\Tariff;
 use CdekSDK2\Actions\TariffList;
 use CdekSDK2\Actions\Webhooks;
-use CdekSDK2\Dto\CityList;
 use CdekSDK2\Dto\IList;
-use CdekSDK2\Dto\RegionList;
-use CdekSDK2\Dto\TariffCodes;
-use CdekSDK2\Dto\WebHookList;
-use CdekSDK2\Dto\PickupPointList;
 use CdekSDK2\Dto\Response;
 use CdekSDK2\Exceptions\AuthException;
 use CdekSDK2\Exceptions\ParsingException;
@@ -346,10 +341,10 @@ class Client
     }
 
     /**
-     * @param ApiResponse $response
+     * @param \CdekSDK2\Http\ApiResponse $response
      * @param string $className
      * @return Response
-     * @throws \Exception
+     * @throws \CdekSDK2\Exceptions\ParsingException
      */
     public function formatResponse(ApiResponse $response, string $className): Response
     {

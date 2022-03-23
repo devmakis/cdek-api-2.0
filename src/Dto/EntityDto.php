@@ -24,11 +24,14 @@ class EntityDto extends Base
      */
     public $uuid;
 
+    /**
+     * @param array $param
+     */
     public function __construct(array $param = [])
     {
         parent::__construct($param);
         $this->rules = [
-            'uuid' => 'required',
+            'uuid' => 'required|alpha_dash:36',
         ];
     }
 }

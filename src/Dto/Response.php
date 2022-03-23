@@ -15,8 +15,8 @@ class Response
     /**
      * Информация о сущности, над которой выполняется запрос
      * (заказ, заявка, печатная форма, договоренность о доставке, подписка)
-     * @Type("\CdekSDK2\Dto\Entity")
-     * @var EntityDto | OrderDto
+     * @Type("CdekSDK2\Dto\EntityDto")
+     * @var EntityDto | OrderDto | InvoiceDto | BarcodeDto
      */
     public $entity;
 
