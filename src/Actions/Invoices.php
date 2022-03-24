@@ -26,7 +26,7 @@ class Invoices extends Action
      * @return ApiResponse
      * @throws RequestException
      */
-    public function add(InvoiceParams $invoice): ApiResponse
+    public function create(InvoiceParams $invoice): ApiResponse
     {
         $params = $this->serializer->toArray($invoice);
         return $this->post($params);

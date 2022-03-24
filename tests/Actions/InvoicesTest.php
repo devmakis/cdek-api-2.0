@@ -57,7 +57,7 @@ class InvoicesTest extends TestCase
         ]);
         $this->assertTrue($invoice->validate());
 
-        $response = $this->invoices->add($invoice);
+        $response = $this->invoices->create($invoice);
         $this->assertInstanceOf(ApiResponse::class, $response);
 
 //        $this->assertTrue($response->hasErrors());

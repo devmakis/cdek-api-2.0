@@ -26,7 +26,7 @@ class Barcodes extends Action
      * @return ApiResponse
      * @throws RequestException
      */
-    public function add(BarcodeParams $barcode): ApiResponse
+    public function create(BarcodeParams $barcode): ApiResponse
     {
         $params = $this->serializer->toArray($barcode);
         return $this->post($params);

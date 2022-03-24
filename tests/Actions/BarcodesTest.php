@@ -56,7 +56,7 @@ class BarcodesTest extends TestCase
         ]);
         $this->assertTrue($barcode->validate());
 
-        $response = $this->barcodes->add($barcode);
+        $response = $this->barcodes->create($barcode);
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
 
