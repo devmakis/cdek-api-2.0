@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CdekSDK2\Http;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class ApiResponse
@@ -34,7 +35,7 @@ class ApiResponse
      * ApiResponse constructor.
      * @param ResponseInterface|null $response
      */
-    public function __construct(ResponseInterface $response = null)
+    public function __construct(ResponseInterface $response = null, ?LoggerInterface $logger = null)
     {
         if ($response === null) {
             $this->status = 500;
@@ -53,6 +54,13 @@ class ApiResponse
                 $this->body = (string)$response->getBody()->getContents();
             } else {
                 $this->body = (string)$response->getBody();
+            }
+
+            if ($logger) {
+                $logger->debug('Response: {status} {uri} {headers} {body}', [
+                    'status' => $response->getStatusCode(),
+                    'body'   => $this->body
+                ]);
             }
 
             if ($this->status > 299) {

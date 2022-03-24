@@ -239,10 +239,20 @@ class Api
 
             $body = (strripos($url, 'oauth/token') === false)
                 ? (string)json_encode($params) : http_build_query($params);
+
             if (!empty($this->token)) {
                 $headers['Authorization'] = 'Bearer ' . $this->token;
             }
+
             $request = new Request($method, $uri, $headers, $body);
+            if ($this->logger) {
+                $this->logger->debug('Request: {method} {uri} {headers} {body}', [
+                    'method'  => $request->getMethod(),
+                    'uri'     => $request->getUri(),
+                    'headers' => json_encode($request->getHeaders(), JSON_UNESCAPED_UNICODE),
+                    'body'    => $request->getBody()
+                ]);
+            }
             $response = $this->client->sendRequest($request);
             return new ApiResponse($response);
         } catch (ClientExceptionInterface $e) {
