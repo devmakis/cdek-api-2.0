@@ -725,4 +725,22 @@ class Constants
      * @var string
      */
     public const ERROR_CODE_VALIDATE_PACKAGE_NUMBER_HAS_ALREASY_USED = 'error_validate_package_number_has_alreasy_used';
+
+    /**
+     * Формат печати: A4
+     * @var string
+     */
+    public const PRINT_FORMAT_A4 = 'A4';
+
+    /**
+     * Формат печати: A5
+     * @var string
+     */
+    public const PRINT_FORMAT_A5 = 'A5';
+
+    /**
+     * Формат печати: A6
+     * @var string
+     */
+    public const PRINT_FORMAT_A6 = 'A6';
 }

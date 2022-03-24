@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
+use CdekSDK2\Constants;
 use CdekSDK2\Types\PrintOrder;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
@@ -33,7 +34,7 @@ class BarcodeParams extends BaseParams
      * @Type("string")
      * @var string
      */
-    public $format = 'A4';
+    public $format = Constants::PRINT_FORMAT_A4;
 
     /**
      * Язык печатной формы. Возможные языки в кодировке ISO - 639-3:
