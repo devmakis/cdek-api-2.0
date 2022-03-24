@@ -136,7 +136,7 @@ class Intake extends Base
 
     /**
      * @SkipWhenEmpty()
-     * @Type("array<CdekSDK2\Types\Statuses>")
+     * @Type("array<CdekSDK2\Types\Status>")
      * @var Status[]
      */
     public $statuses;

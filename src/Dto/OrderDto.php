@@ -195,7 +195,7 @@ class OrderDto extends EntityDto
 
     /**
      * Список статусов по заказу, отсортированных по дате и времени
-     * @Type("array<CdekSDK2\Types\Statuses>")
+     * @Type("array<CdekSDK2\Types\Status>")
      * @var Status[]
      */
     public $statuses;
