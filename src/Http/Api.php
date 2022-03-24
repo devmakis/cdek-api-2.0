@@ -248,13 +248,13 @@ class Api
             if ($this->logger) {
                 $this->logger->debug('Request: {method} {uri} {headers} {body}', [
                     'method'  => $request->getMethod(),
-                    'uri'     => $request->getUri(),
+                    'uri'     => $request->getUri()->getPath(),
                     'headers' => json_encode($request->getHeaders(), JSON_UNESCAPED_UNICODE),
                     'body'    => $request->getBody()
                 ]);
             }
             $response = $this->client->sendRequest($request);
-            return new ApiResponse($response);
+            return new ApiResponse($response, $this->logger);
         } catch (ClientExceptionInterface $e) {
             if ($this->logger) {
                 $this->logger->debug('CDEK API responded with an HTTP error code {error_code}', [
