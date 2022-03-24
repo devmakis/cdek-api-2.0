@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Actions;
 
-use CdekSDK2\BaseTypes\WebHook;
 use CdekSDK2\Dto\InputHook;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\WebHookParams;
 
 /**
  * Class Webhooks
@@ -22,11 +22,11 @@ class Webhooks extends ActionsWithDelete
 
     /**
      * Добавление нового слушателя вебхуков
-     * @param WebHook $webHook
+     * @param WebHookParams $webHook
      * @return ApiResponse
      * @throws \CdekSDK2\Exceptions\RequestException
      */
-    public function add(WebHook $webHook): ApiResponse
+    public function add(WebHookParams $webHook): ApiResponse
     {
         $params = $this->serializer->toArray($webHook);
         return $this->post($params);
@@ -50,6 +50,7 @@ class Webhooks extends ActionsWithDelete
     public function parse(string $string): InputHook
     {
         try {
+            /** @var InputHook $result */
             $result = $this->serializer->deserialize($string, InputHook::class, 'json');
         } catch (\Exception $e) {
             $result = new InputHook();

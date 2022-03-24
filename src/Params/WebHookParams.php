@@ -2,23 +2,16 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Params;
 
 use CdekSDK2\Types\Base;
 
 /**
- * Class WebHook
- * @package CdekSDK2\BaseTypes
+ * Class WebHookParams
+ * @package CdekSDK2\Params
  */
-class WebHook extends Base
+class WebHookParams extends Base
 {
-    /**
-     * Идентификатор подписки
-     * @Type("string")
-     * @var string
-     */
-    public $uuid;
-
     /**
      * Тип события
      * @Type("string")
@@ -27,7 +20,7 @@ class WebHook extends Base
     public $type;
 
     /**
-     * URL клиента для получения вебхуков
+     * URL, на который клиент хочет получать вебхуки
      * @Type("string")
      * @var string
      */
@@ -42,7 +35,7 @@ class WebHook extends Base
         parent::__construct($param);
         $this->rules = [
             'type' => 'required|alpha_dash',
-            'url' => 'required|url',
+            'url'  => 'required|url',
         ];
     }
 }

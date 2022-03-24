@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\BaseTypes;
+namespace CdekSDK2\Dto;
 
 use CdekSDK2\Types\Base;
 use CdekSDK2\Types\Contact;
@@ -10,24 +10,17 @@ use CdekSDK2\Types\Location;
 use CdekSDK2\Types\Status;
 
 /**
- * Class Intake
- * @package CdekSDK2\BaseTypes
+ * Class IntakeDto
+ * @package CdekSDK2\Dto
  */
-class Intake extends Base
+class IntakeDto extends EntityDto
 {
     /**
-     * Идентификатор заявки
+     * Дата ожидания курьера (дата в формате ISO 8601: YYYY-MM-DD)
      * @Type("string")
      * @var string
      */
-    public $uuid;
-
-    /**
-     * Идентификатор заказа
-     * @Type("string")
-     * @var string
-     */
-    public $order_uuid;
+    public $intake_date;
 
     /**
      * Номер заказа СДЭК
@@ -37,11 +30,11 @@ class Intake extends Base
     public $cdek_number;
 
     /**
-     * Дата ожидания курьера (дата в формате ISO 8601: YYYY-MM-DD)
+     * Идентификатор заказа
      * @Type("string")
      * @var string
      */
-    public $intake_date;
+    public $order_uuid;
 
     /**
      * Время начала ожидания курьера (время в формате ISO 8601: hh:mm)
@@ -140,38 +133,4 @@ class Intake extends Base
      * @var Status[]
      */
     public $statuses;
-
-    /**
-     * Intake constructor.
-     * @param array $param
-     */
-    public function __construct(array $param = [])
-    {
-        parent::__construct($param);
-        $this->rules = [
-            'intake_date' => 'required|date:Y-m-d',
-            'intake_time_from' => 'required|date:H:i',
-            'intake_time_to' => 'required|date:H:i',
-            'weight' => 'numeric',
-            'sender' => [
-                '',
-                function ($value) {
-                    if ($value instanceof Contact) {
-                        return $value->validate();
-                    }
-                }
-            ],
-            'from_location' => [
-                '',
-                function ($value) {
-                    if ($value instanceof Location) {
-                        return $value->validate();
-                    }
-                }
-            ],
-            'length' => 'numeric',
-            'width' => 'numeric',
-            'height' => 'numeric',
-        ];
-    }
 }
