@@ -40,9 +40,10 @@ class Orders extends ActionsWithDelete
      */
     public function getByCdekNumber(string $cdekNumber): ApiResponse
     {
-        return $this->http_client->get(static::URL, [
+        $query = $cdekNumber ? http_build_query([
             'cdek_number' => $cdekNumber
-        ]);
+        ]) : '';
+        return $this->http_client->get(static::URL . ($query ? "?$query" : ''));
     }
 
     /**
@@ -53,8 +54,9 @@ class Orders extends ActionsWithDelete
      */
     public function getByImNumber(string $imNumber): ApiResponse
     {
-        return $this->http_client->get(static::URL, [
+        $query = $imNumber ? http_build_query([
             'im_number' => $imNumber
-        ]);
+        ]) : '';
+        return $this->http_client->get(static::URL . ($query ? "?$query" : ''));
     }
 }

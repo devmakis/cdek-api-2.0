@@ -197,13 +197,12 @@ class Api
 
     /**
      * @param string $url
-     * @param array $params
      * @return ApiResponse
      * @throws RequestException
      */
-    public function get(string $url, array $params = []): ApiResponse
+    public function get(string $url): ApiResponse
     {
-        return $this->request('GET', $url, $params);
+        return $this->request('GET', $url);
     }
 
     /**
