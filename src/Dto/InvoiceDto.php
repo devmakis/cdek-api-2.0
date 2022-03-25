@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CdekSDK2\Dto;
 
 use CdekSDK2\Types\PrintOrder;
+use CdekSDK2\Types\Status;
 use JMS\Serializer\Annotation\Type;
 
 class InvoiceDto extends EntityDto
@@ -39,8 +40,8 @@ class InvoiceDto extends EntityDto
 
     /**
      * Список статусов квитанции
-     * @Type("array<CdekSDK2\Dto\StatusDto>")
-     * @var StatusDto[]
+     * @Type("array<CdekSDK2\Types\StatusDto>")
+     * @var Status[]
      */
     public $statuses;
 }

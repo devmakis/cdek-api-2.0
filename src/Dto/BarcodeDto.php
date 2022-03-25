@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CdekSDK2\Dto;
 
 use CdekSDK2\Types\PrintOrder;
+use CdekSDK2\Types\Status;
 use JMS\Serializer\Annotation\Type;
 
 class BarcodeDto extends EntityDto
@@ -46,8 +47,8 @@ class BarcodeDto extends EntityDto
 
     /**
      * Список статусов файла
-     * @Type("array<CdekSDK2\Dto\StatusDto>")
-     * @var StatusDto[]
+     * @Type("array<CdekSDK2\Types\Status>")
+     * @var Status[]
      */
     public $statuses;
 }
