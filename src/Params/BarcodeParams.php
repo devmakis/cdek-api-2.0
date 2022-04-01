@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
+use CdekSDK2\BaseValidation;
 use CdekSDK2\Constants;
 use CdekSDK2\Types\PrintOrder;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
-class BarcodeParams extends BaseParams
+/**
+ * @method static $this create(array $data = [])
+ */
+class BarcodeParams extends BaseValidation
 {
     /**
      * Список заказов
@@ -57,7 +61,7 @@ class BarcodeParams extends BaseParams
                 'required',
                 'array',
                 function ($value) {
-                    return $value instanceof PrintOrder && $value->validate();
+                    return parent::validateObjectsArray($value, PrintOrder::class);
                 }
             ],
             'copy_count' => 'integer',

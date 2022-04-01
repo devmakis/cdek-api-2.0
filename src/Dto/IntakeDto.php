@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Dto;
 
-use CdekSDK2\Types\Base;
 use CdekSDK2\Types\Contact;
 use CdekSDK2\Types\Location;
 use CdekSDK2\Types\Status;

@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
-class Error extends Base
+/**
+ * @method static $this create(array $data = [])
+ */
+class Error extends BaseValidation
 {
     /**
      * Код ошибки

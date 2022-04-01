@@ -11,10 +11,11 @@ namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\Webhooks;
 use CdekSDK2\Dto\InputHook;
-use CdekSDK2\BaseTypes\WebHook;
 use CdekSDK2\Client;
 use CdekSDK2\Constants;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\WebHookParams;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -31,10 +32,7 @@ class WebhooksTest extends TestCase
         $client = new Client(new Psr18Client());
         $client->setTest(true);
         $this->webhooks = $client->webhooks();
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -87,7 +85,7 @@ class WebhooksTest extends TestCase
 
     public function testAdd()
     {
-        $response = $this->webhooks->add(new WebHook([]));
+        $response = $this->webhooks->add(new WebHookParams([]));
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
 

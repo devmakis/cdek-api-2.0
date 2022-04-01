@@ -9,7 +9,6 @@ use CdekSDK2\Params\TariffParams;
 use CdekSDK2\Types\Location;
 use CdekSDK2\Types\Package;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -25,12 +24,8 @@ class TariffsTest extends TestCase
         parent::setUp();
         $client = new Client(new Psr18Client());
         $client->setTest(true);
-
         $this->tariffList = $client->tariffList();
         AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        AnnotationRegistry::registerLoader('class_exists');
     }
 
     protected function tearDown()
@@ -41,7 +36,6 @@ class TariffsTest extends TestCase
 
     public function testAll()
     {
-        /** @var \CdekSDK2\Params\TariffParams $tariffParams */
         $tariffParams = TariffParams::create([
             'from_location' => Location::create([]),
             'to_location'   => Location::create([]),

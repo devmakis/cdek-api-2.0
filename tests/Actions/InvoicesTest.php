@@ -10,10 +10,11 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\Invoices;
-use CdekSDK2\BaseTypes\Invoice;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\InvoiceParams;
 use CdekSDK2\Types\PrintOrder;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -24,7 +25,6 @@ class InvoicesTest extends TestCase
      */
     protected $invoices;
 
-
     protected function setUp()
     {
         parent::setUp();
@@ -32,10 +32,7 @@ class InvoicesTest extends TestCase
         $client = new Client($psr18Client);
         $client->setTest(true);
         $this->invoices = $client->invoice();
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -46,9 +43,9 @@ class InvoicesTest extends TestCase
 
     public function testAdd()
     {
-
-        $invoice = Invoice::create([
-            'orders' => [
+        /** @var InvoiceParams $invoice */
+        $invoice = InvoiceParams::create([
+            'orders'     => [
                 PrintOrder::create([
                     'order_uuid' => 'fail-uuid'
                 ]),
@@ -60,10 +57,9 @@ class InvoicesTest extends TestCase
         $response = $this->invoices->create($invoice);
         $this->assertInstanceOf(ApiResponse::class, $response);
 
-//        $this->assertTrue($response->hasErrors());
-//        $this->assertFalse($response->isOk());
+        //$this->assertTrue($response->hasErrors());
+        //$this->assertFalse($response->isOk());
     }
-
 
     public function testGet()
     {

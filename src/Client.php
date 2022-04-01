@@ -372,8 +372,12 @@ class Client
     public function formatResponseInClass(ApiResponse $response, string $className)
     {
         if (class_exists($className)) {
-            $body = class_implements($className) == IList::class ?
-                '{"items":' . $response->getBody() . '}' : $response->getBody();
+            $implements = class_implements($className);
+            if (in_array(IList::class, $implements)) {
+                $body = '{"items":' . $response->getBody() . '}';
+            } else {
+                $body = $response->getBody();
+            }
             return $this->serializer->deserialize($body, $className, 'json');
         }
 

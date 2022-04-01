@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
-use CdekSDK2\Types\Base;
+use CdekSDK2\BaseValidation;
+use JMS\Serializer\Annotation\Type;
 
 /**
- * Class WebHookParams
- * @package CdekSDK2\Params
+ * @method static $this create(array $data = [])
  */
-class WebHookParams extends Base
+class WebHookParams extends BaseValidation
 {
     /**
      * Тип события

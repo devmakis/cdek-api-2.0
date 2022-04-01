@@ -13,12 +13,13 @@ use CdekSDK2\Actions\Intakes;
 use CdekSDK2\Actions\Offices;
 use CdekSDK2\Actions\Orders;
 use CdekSDK2\Actions\Webhooks;
-use CdekSDK2\BaseTypes\Invoice;
 use CdekSDK2\Constants;
+use CdekSDK2\Dto\InvoiceDto;
 use CdekSDK2\Dto\RegionList;
 use CdekSDK2\Client;
 use CdekSDK2\Exceptions\ParsingException;
 use CdekSDK2\Http\ApiResponse;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -28,15 +29,13 @@ class ClientTest extends TestCase
      * @var Client
      */
     protected $client;
+
     protected function setUp()
     {
         parent::setUp();
         $psr18Client = new Psr18Client();
         $this->client = new Client($psr18Client);
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -137,11 +136,12 @@ class ClientTest extends TestCase
         $response = $this->createMock(ApiResponse::class);
         $response->method('getBody')
             ->willReturn('{"entity":{"uuid":"8bf0e8e2d724","orders":[{"order_uuid":"61a552583eb3"}],"copy_count":1,'
-        . '"url":"","statuses":[{"code":"ACCEPTED","name":"Принят","date_time":"2020-02-11T17:52:45+0700"},'
-        . '{"code":"PROCESSING","name":"Формируется","date_time":"2020-02-11T17:52:45+0700"}]},'
-        . '"requests":[{"errors":[],"warnings":[]}]}');
-        $invoice_response = $this->client->formatResponse($response, Invoice::class);
-        $this->assertInstanceOf(Invoice::class, $invoice_response->entity);
+                . '"url":"","statuses":[{"code":"ACCEPTED","name":"Принят","date_time":"2020-02-11T17:52:45+0700"},'
+                . '{"code":"PROCESSING","name":"Формируется","date_time":"2020-02-11T17:52:45+0700"}]},'
+                . '"requests":[{"errors":[],"warnings":[]}]}');
+        $invoice_response = $this->client->formatResponse($response, InvoiceDto::class);
+        var_dump($invoice_response);
+        $this->assertInstanceOf(InvoiceDto::class, $invoice_response->entity);
     }
 
     public function testFormatResponseException()

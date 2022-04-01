@@ -8,14 +8,14 @@
 
 namespace CdekSDK2\Dto;
 
-use CdekSDK2\Types\Base;
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Entity
  * @package CdekSDK2\Dto
  */
-class EntityDto extends Base
+class EntityDto extends BaseValidation
 {
     /**
      * Уникальный идентификатор

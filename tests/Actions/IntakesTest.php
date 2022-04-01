@@ -10,9 +10,13 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\Intakes;
-use CdekSDK2\BaseTypes\Intake;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\IntakeParams;
+use CdekSDK2\Types\Contact;
+use CdekSDK2\Types\Location;
+use CdekSDK2\Types\Phone;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -23,7 +27,6 @@ class IntakesTest extends TestCase
      */
     protected $intake;
 
-
     protected function setUp()
     {
         parent::setUp();
@@ -31,10 +34,7 @@ class IntakesTest extends TestCase
         $client = new Client($psr18Client);
         $client->setTest(true);
         $this->intake = $client->intakes();
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -45,24 +45,23 @@ class IntakesTest extends TestCase
 
     public function testAdd()
     {
-        $intake = Intake::create([]);
+        $intake = new IntakeParams();
         $intake->intake_date = date('Y-m-d', time() + 2 * 24 * 60 * 60);
         $intake->intake_time_from = '09:00';
         $intake->intake_time_to = '19:00';
         $intake->name = uniqid('sdk-2.0-', true);
         $intake->weight = 10000;
-        $intake->sender = \CdekSDK2\Types\Contact::create([
-            'name' => 'Иван Васильев',
+        $intake->sender = Contact::create([
+            'name'    => 'Иван Васильев',
             'company' => 'CDEK-IT',
-            'email' => 'ivanvasjljev@cdek.it',
-            'phones' => [
-                \CdekSDK2\Types\Phone::create(['number' => '+79999999999'])
+            'email'   => 'ivanvasjljev@cdek.it',
+            'phones'  => [
+                Phone::create(['number' => '+79999999999'])
             ]
-        ]);
-        ;
-        $intake->from_location = \CdekSDK2\Types\Location::create([
-            'address' => 'Кутузовский проспект 1-1',
-            'code' => 137,
+        ]);;
+        $intake->from_location = Location::create([
+            'address'      => 'Кутузовский проспект 1-1',
+            'code'         => 137,
             'country_code' => 'RU'
         ]);
 

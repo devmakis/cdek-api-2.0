@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Contact
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Contact extends Base
+class Contact extends BaseValidation
 {
     /**
      * Название компании

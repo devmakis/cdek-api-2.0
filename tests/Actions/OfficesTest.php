@@ -13,6 +13,7 @@ use CdekSDK2\Actions\Offices;
 use CdekSDK2\Dto\PickupPointList;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -28,12 +29,8 @@ class OfficesTest extends TestCase
         parent::setUp();
         $client = new Client(new Psr18Client());
         $client->setTest(true);
-
         $this->offices = $client->offices();
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -41,7 +38,6 @@ class OfficesTest extends TestCase
         parent::tearDown();
         $this->offices = null;
     }
-
 
     public function testGet()
     {
@@ -58,17 +54,17 @@ class OfficesTest extends TestCase
         $response = $this->offices->getFiltered(['country_code' => 'AE']);
         $this->assertInstanceOf(ApiResponse::class, $response);
 
-        /* @var PickupPointList $pickup_list */
-        $pickup_list = $client->formatResponseInClass($response, PickupPointList::class);
-        $this->assertEquals(1, $pickup_list->getCount());
+        /* @var PickupPointList $pickupPointList */
+        $pickupPointList = $client->formatResponseInClass($response, PickupPointList::class);
+        $this->assertEquals(2, $pickupPointList->getCount());
 
-        $this->assertCount(1, $pickup_list->filter(['type' => 'PVZ']));
+        $this->assertCount(2, $pickupPointList->filter(['type' => 'PVZ']));
     }
 
     public function testParseFilter()
     {
         $filter = [
-            'type' => 'PVZ',
+            'type'      => 'PVZ',
             'city_code' => 1,
         ];
         $class = new \ReflectionClass(Offices::class);
@@ -98,7 +94,7 @@ class OfficesTest extends TestCase
     {
         $filter = [
             'type_pvz' => 'PVZ',
-            'unknown' => 1,
+            'unknown'  => 1,
         ];
         $class = new \ReflectionClass(Offices::class);
         $method = $class->getMethod('parseFilter');

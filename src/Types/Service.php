@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Service
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Service extends Base
+class Service extends BaseValidation
 {
     /**
      * Тип дополнительной услуги, код из справочника доп. услуг

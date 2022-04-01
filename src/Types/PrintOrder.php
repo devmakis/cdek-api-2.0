@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
-class PrintOrder extends Base
+/**
+ * @method static $this create(array $data = [])
+ */
+class PrintOrder extends BaseValidation
 {
     /**
      * Идентификатор заказа
@@ -29,8 +33,8 @@ class PrintOrder extends Base
     {
         parent::__construct($param);
         $this->rules = [
-            'order_uuid'  => 'required_with:cdek_number|alpha_dash',
-            'cdek_number' => 'required_with:order_uuid|integer',
+            'order_uuid'  => 'required_without:cdek_number|alpha_dash',
+            'cdek_number' => 'required_without:order_uuid|integer',
         ];
     }
 }

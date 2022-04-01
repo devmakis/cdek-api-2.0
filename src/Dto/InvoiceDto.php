@@ -40,7 +40,7 @@ class InvoiceDto extends EntityDto
 
     /**
      * Список статусов квитанции
-     * @Type("array<CdekSDK2\Types\StatusDto>")
+     * @Type("array<CdekSDK2\Types\Status>")
      * @var Status[]
      */
     public $statuses;

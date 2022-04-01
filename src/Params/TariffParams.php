@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
+use CdekSDK2\BaseValidation;
 use CdekSDK2\Types\Location;
 use CdekSDK2\Types\Package;
 use CdekSDK2\Types\Service;
@@ -11,11 +12,9 @@ use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class TariffParams
- * @package CdekSDK2\BaseTypes
  * @method static $this create(array $data = [])
  */
-class TariffParams extends BaseParams
+class TariffParams extends BaseValidation
 {
     /**
      * Дата и время планируемой передачи заказа (по умолчанию - текущая)

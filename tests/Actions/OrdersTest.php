@@ -13,17 +13,23 @@ use CdekSDK2\Actions\Orders;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
 use CdekSDK2\Params\OrderParams;
+use CdekSDK2\Types\Contact;
+use CdekSDK2\Types\Item;
+use CdekSDK2\Types\Location;
+use CdekSDK2\Types\Money;
+use CdekSDK2\Types\Package;
+use CdekSDK2\Types\Phone;
+use CdekSDK2\Types\Threshold;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
 class OrdersTest extends TestCase
 {
-
     /**
      * @var Orders
      */
     protected $orders;
-
 
     protected function setUp()
     {
@@ -32,10 +38,7 @@ class OrdersTest extends TestCase
         $client = new Client($psr18Client);
         $client->setTest(true);
         $this->orders = $client->orders();
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -49,47 +52,55 @@ class OrdersTest extends TestCase
         $order_number = uniqid('sdk-test', true);
         /** @var \CdekSDK2\Params\OrderParams $order */
         $order = OrderParams::create([
-            'number' => $order_number,
-            'tariff_code' => '11',
-            'comment' => 'test comment',
-            'sender' => \CdekSDK2\Types\Contact::create([
-                'name' => 'Иван Васильев',
+            'number'                      => $order_number,
+            'tariff_code'                 => '11',
+            'comment'                     => 'test comment',
+            'sender'                      => Contact::create([
+                'name'   => 'Иван Васильев',
                 'phones' => [
-                    \CdekSDK2\Types\Phone::create(['number' => '+79531234567'])
+                    Phone::create(['number' => '+79531234567'])
                 ]
             ]),
-            'recipient' => \CdekSDK2\Types\Contact::create([
-                'name' => 'Витька Балотоев',
-                'email' => 'vasja@cdek.it',
+            'recipient'                   => Contact::create([
+                'name'   => 'Витька Балотоев',
+                'email'  => 'vasja@cdek.it',
                 'phones' => [
-                    \CdekSDK2\Types\Phone::create(['number' => '+79531234567'])
+                    Phone::create(['number' => '+79531234567'])
                 ]
             ]),
             'delivery_recipient_cost_adv' => [
-                \CdekSDK2\Types\Threshold::create(['sum' => 200, 'threshold' => 1000]),
+                Threshold::create(['sum' => 200, 'threshold' => 1000]),
             ],
-            'from_location' => \CdekSDK2\Types\Location::create(['address' => 'Ленина 23-1', 'code' => 270]),
-            'to_location' => \CdekSDK2\Types\Location::create(['address' => 'Марата, 47-49', 'code' => 137]),
-            'packages' => [
-                \CdekSDK2\Types\Package::create([
-                'number' => $order_number,
-                'weight' => 1000,
-                'length' => 10.8,
-                'width' => 11.0,
-                'height' => 11.1,
-                'comment' => 'comment Package number',
-                'items' => [
-                    \CdekSDK2\Types\Item::create([
-                    'name' => 'item name',
-                    'ware_key' => 'YUQT23DA8734',
-                    'payment' => \CdekSDK2\Types\Money::create([
-                        'value' => 0,
-                    ]),
-                    'cost' => 0,
-                    'weight' => 100,
-                    'amount' => 10,
-                ])]
-            ])],
+            'from_location'               => Location::create([
+                'address' => 'Ленина 23-1',
+                'code'    => 270
+            ]),
+            'to_location'                 => Location::create([
+                'address' => 'Марата, 47-49',
+                'code'    => 137
+            ]),
+            'packages'                    => [
+                Package::create([
+                    'number'  => $order_number,
+                    'weight'  => 1000,
+                    'length'  => 10.8,
+                    'width'   => 11.0,
+                    'height'  => 11.1,
+                    'comment' => 'comment Package number',
+                    'items'   => [
+                        Item::create([
+                            'name'     => 'item name',
+                            'ware_key' => 'YUQT23DA8734',
+                            'payment'  => Money::create([
+                                'value' => 0,
+                            ]),
+                            'cost'     => 0,
+                            'weight'   => 100,
+                            'amount'   => 10,
+                        ])
+                    ]
+                ])
+            ],
         ]);
 
         $this->assertTrue($order->validate());

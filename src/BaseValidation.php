@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace CdekSDK2\Types;
+namespace CdekSDK2;
 
+use Rakit\Validation\Validator;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Type;
-use Rakit\Validation\Validator;
 
 /**
- * Class Base
- * @package CdekSDK2\BaseTypes
+ * Class BaseParams
+ * @package CdekSDK2\Params
  */
-class Base
+class BaseValidation
 {
     /**
      * Правила для валидаций
@@ -55,17 +55,39 @@ class Base
         if ($validation->fails()) {
             $this->validationErrors[] = $validation->errors()->all();
         }
+        var_dump($this->validationErrors);
         return $validation->passes();
+    }
+
+    /**
+     * @param $array
+     * @param $class
+     * @return bool
+     */
+    public static function validateObjectsArray($array, $class): bool
+    {
+        if (!is_array($array) || empty($array)) {
+            return false;
+        }
+        $check = false;
+        foreach ($array as $item) {
+            if ($item instanceof $class) {
+                $check = $item->validate();
+                if (!$check) {
+                    return false;
+                }
+            }
+        }
+        return $check;
     }
 
     /**
      * Создание объекта из массива
      * @param array $data
-     * @return Base
+     * @return \CdekSDK2\BaseValidation
      */
-    public static function create($data = []): self
+    public static function create(array $data = []): self
     {
-        \assert(\is_array($data));
         return new static($data);
     }
 }

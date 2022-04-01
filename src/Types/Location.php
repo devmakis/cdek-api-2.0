@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Location
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Location extends Base
+class Location extends BaseValidation
 {
     /**
      * Код страны в формате  ISO_3166-1_alpha-2

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Phone
- * Номер телефона (мобильный/городской):
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Phone extends Base
+class Phone extends BaseValidation
 {
-
     /**
      * Номер телефона
      * Необходимо передавать в международном формате: код страны (для России +7) и сам номер (10 и более цифр)

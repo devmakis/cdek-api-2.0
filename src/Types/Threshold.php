@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Threshold
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Threshold extends Base
+class Threshold extends BaseValidation
 {
     /**
      * Порог стоимости товара (действует по условию меньше или равно) в целых единицах валюты

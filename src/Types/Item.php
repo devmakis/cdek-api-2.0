@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Item
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Item extends Base
+class Item extends BaseValidation
 {
     /**
      * Наименование товара (может также содержать описание товара: размер, цвет)

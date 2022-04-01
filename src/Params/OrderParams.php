@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
+use CdekSDK2\BaseValidation;
 use CdekSDK2\Types\Contact;
 use CdekSDK2\Types\Location;
 use CdekSDK2\Types\Money;
@@ -13,10 +14,9 @@ use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class OrderParams
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class OrderParams extends BaseParams
+class OrderParams extends BaseValidation
 {
     /**
      * Тип заказа

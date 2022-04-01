@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Money
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Money extends Base
+class Money extends BaseValidation
 {
     /**
      * Сумма в валюте

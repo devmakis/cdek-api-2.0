@@ -10,10 +10,11 @@
 namespace CdekSDK2\Tests\Actions;
 
 use CdekSDK2\Actions\Barcodes;
-use CdekSDK2\BaseTypes\Barcode;
 use CdekSDK2\Client;
 use CdekSDK2\Http\ApiResponse;
+use CdekSDK2\Params\BarcodeParams;
 use CdekSDK2\Types\PrintOrder;
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -24,7 +25,6 @@ class BarcodesTest extends TestCase
      */
     protected $barcodes;
 
-
     protected function setUp()
     {
         parent::setUp();
@@ -32,10 +32,7 @@ class BarcodesTest extends TestCase
         $client = new Client($psr18Client);
         $client->setTest(true);
         $this->barcodes = $client->barcodes();
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('phan');
-
-        /** @phan-suppress-next-line PhanDeprecatedFunction */
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        AnnotationReader::addGlobalIgnoredName('phan');
     }
 
     protected function tearDown()
@@ -46,8 +43,9 @@ class BarcodesTest extends TestCase
 
     public function testAdd()
     {
-        $barcode = Barcode::create([
-            'orders' => [
+        /** @var BarcodeParams $barcode */
+        $barcode = BarcodeParams::create([
+            'orders'     => [
                 PrintOrder::create([
                     'order_uuid' => 'fail-uuid'
                 ]),
@@ -59,7 +57,6 @@ class BarcodesTest extends TestCase
         $response = $this->barcodes->create($barcode);
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
-
 
     public function testGet()
     {

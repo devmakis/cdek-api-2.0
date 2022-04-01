@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Status
- * @package CdekSDK2\Dto
+ * @method static $this create(array $data = [])
  */
-class Status extends Base
+class Status extends BaseValidation
 {
     /**
      * Код статуса

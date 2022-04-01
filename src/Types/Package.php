@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Types;
 
+use CdekSDK2\BaseValidation;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Package
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class Package extends Base
+class Package extends BaseValidation
 {
     /**
      * Уникальный номер упаковки в ИС СДЭК
@@ -109,19 +109,7 @@ class Package extends Base
             'items'         => [
                 'array',
                 function ($value) {
-                    if (!is_array($value) || empty($value)) {
-                        return false;
-                    }
-                    $check = false;
-                    foreach ($value as $item) {
-                        if ($item instanceof Phone) {
-                            $check = $item->validate();
-                            if (!$check) {
-                                return false;
-                            }
-                        }
-                    }
-                    return $check;
+                    return parent::validateObjectsArray($value, Item::class);
                 }
             ],
         ];

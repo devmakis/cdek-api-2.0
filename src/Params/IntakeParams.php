@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Params;
 
-use CdekSDK2\Types\Base;
+use CdekSDK2\BaseValidation;
 use CdekSDK2\Types\Contact;
 use CdekSDK2\Types\Location;
-use CdekSDK2\Types\Status;
+use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Intake
- * @package CdekSDK2\BaseTypes
+ * @method static $this create(array $data = [])
  */
-class IntakeParams extends Base
+class IntakeParams extends BaseValidation
 {
     /**
      * Номер заказа СДЭК
