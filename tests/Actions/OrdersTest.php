@@ -50,7 +50,6 @@ class OrdersTest extends TestCase
     public function testAdd()
     {
         $order_number = uniqid('sdk-test', true);
-        /** @var \CdekSDK2\Params\OrderParams $order */
         $order = OrderParams::create([
             'number'                      => $order_number,
             'tariff_code'                 => '11',

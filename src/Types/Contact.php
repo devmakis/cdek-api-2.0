@@ -103,20 +103,9 @@ class Contact extends BaseValidation
             'email'  => 'email',
             'phones' => [
                 'required',
+                'array',
                 function ($value) {
-                    if (!is_array($value) || empty($value)) {
-                        return false;
-                    }
-                    $check = false;
-                    foreach ($value as $item) {
-                        if ($item instanceof Phone) {
-                            $check = $item->validate();
-                            if (!$check) {
-                                return false;
-                            }
-                        }
-                    }
-                    return $check;
+                    return parent::validateObjectsArray($value, Phone::class);
                 }
             ]
         ];
