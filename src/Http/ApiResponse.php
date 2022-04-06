@@ -84,6 +84,15 @@ class ApiResponse
     }
 
     /**
+     * Не авторизован
+     * @return bool
+     */
+    public function isUnauthorized(): bool
+    {
+        return $this->status === 401 || $this->status === 500;
+    }
+
+    /**
      * Проверка наличия ошибок в запросе
      * @return bool
      */

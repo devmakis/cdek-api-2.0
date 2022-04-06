@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CdekSDK2\Http;
 
 use CdekSDK2\Constants;
+use CdekSDK2\Exceptions\AuthCacheFileException;
 use CdekSDK2\Exceptions\AuthException;
 use CdekSDK2\Exceptions\RequestException;
 use Nyholm\Psr7\Request;
@@ -20,6 +21,8 @@ use Psr\Log\LoggerAwareTrait;
 class Api
 {
     use LoggerAwareTrait;
+
+    private const AUTH_URL = '/oauth/token?parameters';
 
     /**
      * Аккаунт сервиса интеграции
@@ -55,6 +58,11 @@ class Api
     protected $client;
 
     /**
+     * @var string
+     */
+    protected $authCacheFile;
+
+    /**
      * Api constructor.
      * @param ClientInterface $http
      * @param string|null $account
@@ -65,6 +73,14 @@ class Api
         $this->account = $account ?? '';
         $this->secure = $secure ?? '';
         $this->client = $http;
+    }
+
+    /**
+     * @param string $authCacheFile
+     */
+    public function setAuthCacheFile(string $authCacheFile): void
+    {
+        $this->authCacheFile = $authCacheFile;
     }
 
     /**
@@ -144,20 +160,48 @@ class Api
      */
     public function authorize(): bool
     {
-        $param = [
-            Constants::AUTH_KEY_TYPE => Constants::AUTH_PARAM_CREDENTIAL,
-            Constants::AUTH_KEY_CLIENT_ID => $this->account,
-            Constants::AUTH_KEY_SECRET => $this->secure,
-        ];
-        $response = $this->post('/oauth/token', $param);
-        if ($response->isOk()) {
-            $token_info = $this->decodeBody($response->getBody());
-            $this->token = $token_info['access_token'] ?? '';
-            $this->expire = $token_info['expires_in'] ?? 0;
-            $this->expire = time() + $this->expire - 10;
+        if ($this->token && !$this->isExpired()) {
             return true;
         }
-        throw new AuthException(Constants::AUTH_FAIL);
+
+        $tokenInfo = [];
+        // Если данные авторизации кэшируются, то читаем из кэша
+        if ($this->authCacheFile && file_exists($this->authCacheFile)) {
+            $contents = file_get_contents($this->authCacheFile);
+            $tokenInfo = json_decode($contents, true) ?: [];
+            $this->setExpireByTokenInfo((array)$tokenInfo);
+        }
+
+        // Если данные не кэшируются или их срок истек, то делаем запрос на авторизацию
+        if (empty($tokenInfo) || $this->isExpired()) {
+            $response = $this->post(self::AUTH_URL, [
+                Constants::AUTH_KEY_TYPE      => Constants::AUTH_PARAM_CREDENTIAL,
+                Constants::AUTH_KEY_CLIENT_ID => $this->account,
+                Constants::AUTH_KEY_SECRET    => $this->secure,
+            ]);
+
+            if ($response->isOk()) {
+                $tokenInfo = $this->decodeBody($response->getBody());
+                if ($this->authCacheFile) {
+                    // Кэшируем данные авторизации в файл
+                    $contents = file_put_contents($this->authCacheFile, $response->getBody());
+                    if ($contents === false) {
+                        $error = error_get_last();
+                        throw new AuthCacheFileException($error['message']);
+                    } elseif ($contents === 0) {
+                        throw new AuthCacheFileException('file_put_contents: number of bytes written to the file = 0');
+                    }
+                }
+            }
+        }
+
+        if (empty($tokenInfo)) {
+            throw new AuthException(Constants::AUTH_FAIL);
+        }
+
+        $this->token = $tokenInfo['access_token'] ?? '';
+        $this->setExpireByTokenInfo((array)$tokenInfo);
+        return true;
     }
 
     /**
@@ -182,6 +226,14 @@ class Api
     public function setExpire(int $timestamp): void
     {
         $this->expire = $timestamp;
+    }
+
+    /**
+     * @param array $tokenInfo
+     */
+    private function setExpireByTokenInfo(array $tokenInfo): void
+    {
+        $this->expire = time() + ($tokenInfo['expires_in'] ?? 0) - 10;
     }
 
     /**
@@ -228,19 +280,19 @@ class Api
         $uri = new Uri($url);
         try {
             $headers = [
-                'Accept' => 'application/json',
+                'Accept'       => 'application/json',
                 'Content-Type' => 'application/json',
             ];
-            if ($this->isExpired() && strripos($url, 'oauth/token') === false) {
-                $this->authorize();
-            } elseif (strripos($url, 'oauth/token') !== false) {
+            // Если авторизация
+            if ($this->isAuthUrl($url)) {
                 $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                $body = http_build_query($params);
+            } else {
+                $this->authorize();
+                $body = (string)json_encode($params);
             }
 
-            $body = (strripos($url, 'oauth/token') === false)
-                ? (string)json_encode($params) : http_build_query($params);
-
-            if (!empty($this->token)) {
+            if ($this->token) {
                 $headers['Authorization'] = 'Bearer ' . $this->token;
             }
 
@@ -254,6 +306,12 @@ class Api
                 ]);
             }
             $response = $this->client->sendRequest($request);
+            $apiResponse = new ApiResponse($response, $this->logger);
+            // Если запрос с токеном из кэша падает с ошибкой авторизации
+            if ($this->authCacheFile && $apiResponse->isUnauthorized()) {
+                unlink($this->authCacheFile);
+            }
+            
             return new ApiResponse($response, $this->logger);
         } catch (ClientExceptionInterface $e) {
             if ($this->logger) {
@@ -277,16 +335,22 @@ class Api
     }
 
     /**
+     * @param $url
+     * @return bool
+     */
+    private function isAuthUrl($url): bool
+    {
+        return strripos($url, self::AUTH_URL) !== false;
+    }
+
+    /**
      * Преобразовываем json в массив
      * @param string $body
      * @return array
      */
     private function decodeBody(string $body): array
     {
-        $decoded_body = json_decode($body, true);
-        if ($decoded_body === null || !is_array($decoded_body)) {
-            $decoded_body = [];
-        }
-        return $decoded_body;
+        $decodedBody = json_decode($body, true);
+        return is_array($decodedBody) ? $decodedBody : [];
     }
 }

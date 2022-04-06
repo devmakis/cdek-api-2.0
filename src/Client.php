@@ -220,6 +220,16 @@ class Client
     }
 
     /**
+     * @param string $authCacheFile
+     * @return $this
+     */
+    public function setAuthFileCache(string $authCacheFile): self
+    {
+        $this->http_client->setAuthCacheFile($authCacheFile);
+        return $this;
+    }
+
+    /**
      * Авторизация клиента в сервисе Интеграции
      * @return bool
      * @throws AuthException
