@@ -306,14 +306,14 @@ class Api
                 ]);
             }
             $response = $this->client->sendRequest($request);
-            $apiResponse = new ApiResponse($response, $this->logger);
-            // Если запрос с токеном из кэша падает с ошибкой авторизации
-            if ($this->authCacheFile && $apiResponse->isUnauthorized()) {
-                unlink($this->authCacheFile);
-            }
-            
             return new ApiResponse($response, $this->logger);
         } catch (ClientExceptionInterface $e) {
+            // Если запрос с токеном из кэша падает с ошибкой авторизации
+            if ($this->authCacheFile && $e->getCode() === 401) {
+                unlink($this->authCacheFile);
+                return $this->request($method, $url, $params);
+            }
+
             if ($this->logger) {
                 $this->logger->debug('CDEK API responded with an HTTP error code {error_code}', [
                     'exception'  => $e,
