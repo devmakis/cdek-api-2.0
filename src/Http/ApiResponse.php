@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Http;
 
+use CdekSDK2\Constants;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
@@ -89,7 +90,8 @@ class ApiResponse
      */
     public function isUnauthorized(): bool
     {
-        return $this->status === 401 || $this->status === 500;
+        return ($this->status === 401 || $this->status === 500) ||
+            $this->hasErrors() && $this->errors['code'] === Constants::ERROR_CODE_V2_TOKEN_EXPIRED;
     }
 
     /**

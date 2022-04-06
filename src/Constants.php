@@ -721,6 +721,11 @@ class Constants
     public const TARIFF_CODE_TRUNK_EXPRESS_DOOR_WAREHOUSE = 123;
 
     /**
+     * @var string
+     */
+    public const ERROR_CODE_V2_TOKEN_EXPIRED = 'v2_token_expired';
+
+    /**
      * Код ошибки "Место с указанным номером уже существует"
      * @var string
      */
