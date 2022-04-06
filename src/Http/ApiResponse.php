@@ -85,16 +85,6 @@ class ApiResponse
     }
 
     /**
-     * Не авторизован
-     * @return bool
-     */
-    public function isUnauthorized(): bool
-    {
-        return ($this->status === 401 || $this->status === 500) ||
-            $this->hasErrors() && $this->errors['code'] === Constants::ERROR_CODE_V2_TOKEN_EXPIRED;
-    }
-
-    /**
      * Проверка наличия ошибок в запросе
      * @return bool
      */

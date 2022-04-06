@@ -276,15 +276,14 @@ class Api
      */
     protected function request(string $method, string $url, array $params = []): ApiResponse
     {
-        $url = ($this->test ? Constants::API_URL_TEST : Constants::API_URL) . $url;
-        $uri = new Uri($url);
+        $uri = new Uri(($this->test ? Constants::API_URL_TEST : Constants::API_URL) . $url);
         try {
             $headers = [
                 'Accept'       => 'application/json',
                 'Content-Type' => 'application/json',
             ];
             // Если авторизация
-            if ($this->isAuthUrl($url)) {
+            if ($url === self::AUTH_URL) {
                 $headers['Content-Type'] = 'application/x-www-form-urlencoded';
                 $body = http_build_query($params);
             } else {
@@ -310,7 +309,9 @@ class Api
         } catch (ClientExceptionInterface $e) {
             // Если запрос с токеном из кэша падает с ошибкой авторизации
             if ($this->authCacheFile && $e->getCode() === 401) {
+                // Удаляем файл кэша, чтобы получить новый токен
                 unlink($this->authCacheFile);
+                // Повторяем запрос
                 return $this->request($method, $url, $params);
             }
 
@@ -332,15 +333,6 @@ class Api
 
             throw new RequestException($e->getMessage(), (int)$e->getCode());
         }
-    }
-
-    /**
-     * @param $url
-     * @return bool
-     */
-    private function isAuthUrl($url): bool
-    {
-        return strripos($url, self::AUTH_URL) !== false;
     }
 
     /**
