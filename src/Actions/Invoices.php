@@ -34,12 +34,12 @@ class Invoices extends Action
 
     /**
      * Запрос на получение данных печатной формы
-     * @param string $uuid
+     * @param string $url
      * @return ApiResponse
      * @throws RequestException
      */
-    public function download(string $uuid): ApiResponse
+    public function download(string $url): ApiResponse
     {
-        return $this->http_client->get($this->slug($uuid) . '.pdf');
+        return $this->http_client->get($url);
     }
 }
