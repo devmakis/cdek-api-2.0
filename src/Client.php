@@ -376,7 +376,7 @@ class Client
     /**
      * @param \CdekSDK2\Http\ApiResponse $response
      * @param string $className
-     * @return array|bool|float|int|mixed|object|\S|string
+     * @return array|bool|float|int|mixed|object|string
      * @throws \CdekSDK2\Exceptions\ParsingException
      */
     public function formatResponseInClass(ApiResponse $response, string $className)
