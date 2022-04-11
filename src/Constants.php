@@ -748,4 +748,10 @@ class Constants
      * @var string
      */
     public const PRINT_FORMAT_A6 = 'A6';
+
+    /**
+     * Время жизни ссылки на печатный документ, в минутах
+     * @var int
+     */
+    public const LIFETIME_OF_LINK_TO_PRINTED_DOCUMENT = 60;
 }

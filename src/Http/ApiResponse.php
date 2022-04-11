@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Http;
 
-use CdekSDK2\Constants;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 

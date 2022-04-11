@@ -160,7 +160,7 @@ class Api
      */
     public function authorize(): bool
     {
-        if ($this->token && !$this->isExpired()) {
+        if ($this->token && $this->expire > 0 && !$this->isExpired()) {
             return true;
         }
 
@@ -172,8 +172,8 @@ class Api
             $this->setExpireByTokenInfo((array)$tokenInfo);
         }
 
-        // Если данные не кэшируются или их срок истек, то делаем запрос на авторизацию
-        if (empty($tokenInfo) || $this->isExpired()) {
+        // Если срок действия токена истек, то делаем запрос на авторизацию
+        if ($this->expire > 0 && $this->isExpired()) {
             $response = $this->post(self::AUTH_URL, [
                 Constants::AUTH_KEY_TYPE      => Constants::AUTH_PARAM_CREDENTIAL,
                 Constants::AUTH_KEY_CLIENT_ID => $this->account,
