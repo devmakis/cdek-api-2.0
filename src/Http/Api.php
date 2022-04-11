@@ -172,8 +172,8 @@ class Api
             $this->setExpireByTokenInfo((array)$tokenInfo);
         }
 
-        // Если срок действия токена истек, то делаем запрос на авторизацию
-        if ($this->expire > 0 && $this->isExpired()) {
+        // Если срок действия токена не установлен или истек, то делаем запрос на авторизацию
+        if (!$this->expire || $this->isExpired()) {
             $response = $this->post(self::AUTH_URL, [
                 Constants::AUTH_KEY_TYPE      => Constants::AUTH_PARAM_CREDENTIAL,
                 Constants::AUTH_KEY_CLIENT_ID => $this->account,
