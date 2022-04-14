@@ -56,19 +56,22 @@ class ApiResponse
                 ]);
             }
 
-            if ($this->status > 299) {
-                $decode_body = json_decode($this->body, true);
-                if (isset($decode_body['requests']) && is_array($decode_body['requests'])) {
-                    $decode_body = reset($decode_body['requests']);
+            if ($this->status > 199) {
+                $decodeBody = json_decode($this->body, true);
+
+                if (isset($decodeBody['requests']) && is_array($decodeBody['requests'])) {
+                    foreach ($decodeBody['requests'] as $request) {
+                        if (isset($request['errors']) && is_array($request['errors'])) {
+                            $this->errors = $request['errors'];
+                        }
+                    }
                 }
 
-                if (isset($decode_body['error'])) {
+                if (isset($decodeBody['error'])) {
                     $this->errors[] = [
-                        'code'    => $decode_body['error'],
-                        'message' => $decode_body['error_description'] ?? $decode_body['message'] ?? 'unknown_error'
+                        'code'    => $decodeBody['error'],
+                        'message' => $decodeBody['error_description'] ?? $decodeBody['message'] ?? 'unknown_error'
                     ];
-                } elseif (isset($decode_body['errors'])) {
-                    $this->errors = $decode_body['errors'];
                 }
             }
         }
