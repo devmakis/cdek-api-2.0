@@ -309,8 +309,7 @@ class Api
         } catch (ClientExceptionInterface $e) {
             // Если запрос с токеном из кэша падает с ошибкой авторизации
             if ($this->authCacheFile && $e->getCode() === 401) {
-                // Удаляем файл кэша, чтобы получить новый токен
-                unlink($this->authCacheFile);
+                $this->resetToken();
                 // Повторяем запрос
                 return $this->request($method, $url, $params);
             }
@@ -344,5 +343,17 @@ class Api
     {
         $decodedBody = json_decode($body, true);
         return is_array($decodedBody) ? $decodedBody : [];
+    }
+
+    /**
+     * @return void
+     */
+    private function resetToken()
+    {
+        $this->token = '';
+        $this->expire = 0;
+        if ($this->authCacheFile && file_exists($this->authCacheFile)) {
+            unlink($this->authCacheFile);
+        }
     }
 }
