@@ -268,15 +268,13 @@ if ($result->isOk()) {
 ### Подписка на вебхуки {: #webhooks_add }
 
 ```php
-use CdekSDK2\BaseTypes\WebHook;
-
-$hook = WebHook::create([
+$hook = \CdekSDK2\Dto\WebHookDto::create([
     'url' => 'https://url_in_your_site/webhooks',
     'type' => \CdekSDK2\Constants::HOOK_TYPE_STATUS
 ]);
 
 //или для получения хука о готовности печатной формы
-$print_hook = WebHook::create([
+$print_hook = \CdekSDK2\Dto\WebHookDto::create([
     'url' => 'https://url_in_your_site/webhooks_for_print',
     'type' => \CdekSDK2\Constants::HOOK_PRINT_STATUS
 ]);
@@ -288,7 +286,7 @@ if ($result->hasErrors()) {
 
 if ($result->isOk()) {
     //Запрос успешно выполнился
-    $response = $cdek->formatResponse($result, WebHook::class);
+    $response = $cdek->formatResponse($result, \CdekSDK2\Dto\WebHookDto::class);
     $response->entity->uuid;
 }
 ```
@@ -305,7 +303,7 @@ if ($result->hasErrors()) {
 
 if ($result->isOk()) {
     //Запрос успешно выполнился
-    $response = $cdek->formatResponse($result, BaseTypes\WebHook::class);
+    $response = $cdek->formatResponse($result, \CdekSDK2\Dto\WebHookDto::class);
     $response->entity->uuid;
 }
 ```
@@ -321,7 +319,7 @@ if ($result->hasErrors()) {
 
 if ($result->isOk()) {
     //Запрос успешно выполнился
-    $response = $cdek->formatResponseList($res, BaseTypes\WebHookList::class);
+    $response = $cdek->formatResponseList($res, \CdekSDK2\Dto\WebHookList::class);
     $response->items;
 }
 ```
