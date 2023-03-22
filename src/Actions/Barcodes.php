@@ -53,6 +53,6 @@ class Barcodes extends Action
      */
     public function downloadByUrl(string $url): ApiResponse
     {
-        return $this->http_client->get($this->slug($url));
+        return $this->http_client->get($url);
     }
 }
