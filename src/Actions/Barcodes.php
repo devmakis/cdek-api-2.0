@@ -37,9 +37,22 @@ class Barcodes extends Action
      * @param string $uuid
      * @return ApiResponse
      * @throws RequestException
+     * @deprecated
+     * @see \CdekSDK2\Actions\Barcodes::downloadByUrl
      */
     public function download(string $uuid): ApiResponse
     {
         return $this->http_client->get($this->slug($uuid) . '.pdf');
+    }
+
+    /**
+     * Запрос на получение данных печатной формы по ссылке
+     * @param string $url
+     * @return ApiResponse
+     * @throws RequestException
+     */
+    public function downloadByUrl(string $url): ApiResponse
+    {
+        return $this->http_client->get($this->slug($url));
     }
 }
